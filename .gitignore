@@ -1,0 +1,8 @@
+ft_ls
+.build/
+*.o
+*.a
+*.d
+test.c
+a.out
+.vscode/
