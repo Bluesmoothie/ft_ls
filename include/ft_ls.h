@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/11 23:38:28 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:50:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-typedef struct stat	t_stat;
+typedef struct stat		t_stat;
+typedef struct dirent 	t_dirent;
+
 
 //	main.c
 
