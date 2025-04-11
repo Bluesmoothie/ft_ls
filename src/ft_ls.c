@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/11 23:54:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:57:11 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	ls_path(char *path, char *arg, bool mul)
 			return (perror(NULL));
 	}
 	ft_printf("\n\n");
+	closedir(dir);
 }
