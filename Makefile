@@ -22,6 +22,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 SRC_FILES		=	main		\
 					ft_ls		\
 					ft_getcwd	\
+					resolve		\
 					verifs		\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/10 18:48:22 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:38:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ typedef struct stat	t_stat;
 char	*ft_getcwd(char **envp);
 
 //	ft_ls.c
-void	ls_path(char *path);
+void	ls_path(char *path, char *arg, bool mul);
+
+//	resolve.c
+char	*resolve_path(char *arg, char **envp);
 
 //	verifs.c
-bool	verif_path(char *path);
+bool	verif_path(char *path, char *arg);
 
 #endif
