@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:04:57 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 22:58:40 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:28:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,20 @@ int	ft_lslstsize(t_lslst *lst)
 		size++;
 	}
 	return (size);
+}
+
+/*
+** Use del function to delete all nodes
+** in lst, updating the pointer
+*/
+void	ft_lslstclear(t_lslst **lst, void (*del)(void*))
+{
+	t_lslst	*tmp;
+
+	while (*lst != NULL)
+	{
+		tmp = (*lst)->next;
+		del(*lst);
+		*lst = tmp;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:13:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 23:42:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/12 23:45:06 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,16 @@ void	print_context(t_context ctx)
 void	print_lslst(t_lslst *lst)
 {
 	ft_printf("List content :\n");
-	
+	while (lst)
+	{
+		ft_printf("Raw_arg : %s\n", lst->raw_arg);
+		ft_printf("Detected mode : ");
+		if (lst->mode == MLS_INVALID)
+			ft_printf("INVALID\n\n");
+		if (lst->mode == MLS_FILE)
+			ft_printf("FILE\n\n");
+		if (lst->mode == MLS_DIRECTORY)
+			ft_printf("DIRECTORY\n\n");
+		lst = lst->next;
+	}
 }

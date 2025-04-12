@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:05:19 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 23:38:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:26:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ t_lslst		*ft_lslstnew(char *raw_arg);
 void		ft_lslstadd_back(t_lslst **lst, t_lslst *new);
 t_lslst		*ft_lslstlast(t_lslst *lst);
 int			ft_lslstsize(t_lslst *lst);
+void		ft_lslstclear(t_lslst **lst, void (*del)(void*));
 
 #endif

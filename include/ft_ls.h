@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 23:33:22 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:09:08 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,28 @@ typedef struct s_context
 	char	*cwd;
 }	t_context;
 
+enum	e_erros
+{
+	ELS_ACCESS,
+	ELS_OPEN
+};
+
 //	main.c
 void		process_request(t_context ctx);
 
 //	debug.c
 void		print_context(t_context ctx);
+void		print_lslst(t_lslst *lst);
 
 //	error.c
 void		pexit(void);
+void		ft_perror(int error, char *arg);
 
 //	ft_getcwd.c
 char		*ft_getcwd(char **envp);
 
 //	ft_ls.c
-void		ls_path(t_context ctx, char *path, char *arg);
+void		ls_path(t_context ctx, char *arg);
 
 //	parse.c
 t_context	parse_args(int argc, char **argv, char **envp);

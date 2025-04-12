@@ -26,7 +26,6 @@ SRC_FILES		=	main			\
 					ft_ls			\
 					parse			\
 					print			\
-					resolve			\
 					utils			\
 					verifs			\
 					t_lslst/t_lslst	\
