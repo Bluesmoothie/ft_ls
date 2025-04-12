@@ -6,15 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:50:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:59:19 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 static t_list	*extract_content(DIR *dir);
-static t_list	*sort_content(t_list *content);
-static int		sort_helper(const char *s1, const char *s2);
+static t_list	*sort_content(t_list *content, t_param param);
+static bool		sort_helper(const char *s1, const char *s2, t_param param);
 
 void	ls_path(t_context ctx, char *arg)
 {
@@ -30,7 +30,7 @@ void	ls_path(t_context ctx, char *arg)
 	if (ctx.multiple)
 		ft_printf("%s:\n", arg);
 	content = extract_content(dir);
-	content = sort_content(content);
+	content = sort_content(content, ctx.param);
 	print_content(content, ctx.param);
 	ft_lstclear(&content, free);
 	ft_printf("\n");
@@ -55,7 +55,7 @@ static t_list	*extract_content(DIR *dir)
 	return (content);
 }
 
-static t_list	*sort_content(t_list *content)
+static t_list	*sort_content(t_list *content, t_param param)
 {
 	t_list	*mem;
 	t_list	*swap;
@@ -65,7 +65,7 @@ static t_list	*sort_content(t_list *content)
 	prev = NULL;
 	while (content->next)
 	{
-		if (sort_helper(content->content, content->next->content) > 0)
+		if (sort_helper(content->content, content->next->content, param))
 		{
 			if (mem == content)
 				mem = content->next;
@@ -86,11 +86,17 @@ static t_list	*sort_content(t_list *content)
 	return (mem);
 }
 
-static int	sort_helper(const char *s1, const char *s2)
+static bool	sort_helper(const char *s1, const char *s2, t_param param)
 {
+	if (param.reverse && !ft_strcmp(s1, ".") && !ft_strcmp(s2, ".."))
+		return (true);
 	if (!ft_strncmp(s1, ".", 1) && s1[1])
 		s1++;
 	if (!ft_strncmp(s2, ".", 1)&& s2[1])
 		s2++;
-	return (ft_strcmp_casei(s1, s2));
+	if (!param.reverse && ft_strcmp_casei(s1, s2) > 0)
+		return (true);
+	else if (param.reverse && ft_strcmp_casei(s1, s2) < 0)
+		return (true);
+	return (false);
 }
