@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   t_lslst.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 23:41:33 by ygille           ###   ########.fr       */
+/*   Created: 2025/04/12 22:05:19 by ygille            #+#    #+#             */
+/*   Updated: 2025/04/12 23:38:08 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#ifndef T_LSLST_H
+# define T_LSLST_H
 
-int	main(int argc, char **argv, char **envp)
+# include <stdlib.h>
+
+typedef struct s_lslst	t_lslst;
+
+typedef struct s_lslst
 {
-	t_context	ctx;
+	char	*raw_arg;
+	int		mode;
+	t_lslst	*next;
+}	t_lslst;
 
-	ctx = parse_args(argc, argv, envp);
-	// print_context(ctx);
-	process_request(ctx);
-	exit(ctx.code);
-}
-
-void	process_request(t_context ctx)
+enum	e_modes
 {
-	if (ctx.cwd_mode)
-		return (ls_path(ctx, ctx.cwd, ctx.cwd));
-	verif_paths(ctx.lst);
-	print_lslst(ctx.lst);
-}
+	MLS_INVALID,
+	MLS_FILE,
+	MLS_DIRECTORY
+};
+
+//	t_lslst.c
+t_lslst		*ft_lslstnew(char *raw_arg);
+void		ft_lslstadd_back(t_lslst **lst, t_lslst *new);
+t_lslst		*ft_lslstlast(t_lslst *lst);
+int			ft_lslstsize(t_lslst *lst);
+
+#endif

@@ -19,14 +19,17 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 
 #			SRC
 
-SRC_FILES		=	main		\
-					error		\
-					ft_ls		\
-					ft_getcwd	\
-					print		\
-					resolve		\
-					utils		\
-					verifs		\
+SRC_FILES		=	main			\
+					debug			\
+					error			\
+					ft_getcwd		\
+					ft_ls			\
+					parse			\
+					print			\
+					resolve			\
+					utils			\
+					verifs			\
+					t_lslst/t_lslst	\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -46,6 +49,7 @@ $(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
 
 $(BUILD_DIR)	:
 				mkdir -p $(BUILD_DIR)
+				mkdir -p $(BUILD_DIR)t_lslst
 
 $(BUILD_DIR)%.o	: 	$(SRC_DIR)%.c
 				$(CC) $(CFLAGS) -c $< -o $@

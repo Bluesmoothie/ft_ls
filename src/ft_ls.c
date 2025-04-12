@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 20:58:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/12 23:19:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_list	*remove_ucontent(t_list *content, t_param para);
 static t_list	*sort_content(t_list *content);
 static bool		is_unwanted(char *content, t_param para);
 
-bool	ls_path(char *path, char *arg, bool mul, t_param param)
+void	ls_path(t_context ctx, char *path, char *arg)
 {
 	DIR			*dir;
 	t_list		*content;
@@ -25,18 +25,17 @@ bool	ls_path(char *path, char *arg, bool mul, t_param param)
 	dir = opendir(path);
 	if (!dir)
 	{
-		perror(ft_strjoin(ft_strjoin("ls: can't open directory '", arg), "'"));
-		return (false);
+		ctx.code = MAJOR_ERROR;
+		return (perror(ft_strjoin(ft_strjoin("ls: can't open directory '", arg), "'")));
 	}
-	if (mul)
+	if (ctx.multiple)
 		ft_printf("%s:\n", arg);
 	content = extract_content(dir);
-	content = remove_ucontent(content, param);
+	content = remove_ucontent(content, ctx.param);
 	content = sort_content(content);
 	print_content(content);
-	if (!mul)
+	if (!ctx.multiple)
 		ft_printf("\n");
-	return (true);
 }
 
 static t_list	*extract_content(DIR *dir)
