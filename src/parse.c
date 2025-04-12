@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:11:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 23:28:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:35:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parse_argument(t_lslst **lst, char *argument);
 
 t_context	parse_args(int argc, char **argv, char **envp)
 {
-	t_context ctx;
+	t_context	ctx;
 	int			i;
 	int			size;
 
@@ -68,7 +68,7 @@ void	parse_argument(t_lslst **lst, char *argument)
 	t_lslst	*new;
 
 	new = ft_lslstnew(argument);
-	if(!new)
+	if (!new)
 		exit(-1);
 	ft_lslstadd_back(lst, new);
 }

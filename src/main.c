@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:27:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:37:25 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(int argc, char **argv, char **envp)
 	t_context	ctx;
 
 	ctx = parse_args(argc, argv, envp);
-	// print_context(ctx);
 	process_request(ctx);
 	ft_lslstclear(&ctx.lst, free);
 	exit(ctx.code);
@@ -44,7 +43,6 @@ void	process_request(t_context ctx)
 		ft_printf("\n\n");
 	while (lst)
 	{
-		
 		if (lst->mode == MLS_DIRECTORY)
 		{
 			ls_path(ctx, lst->raw_arg);

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:09:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 00:37:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MAJOR_ERROR	2	
 
 typedef struct stat		t_stat;
-typedef struct dirent 	t_dirent;
+typedef struct dirent	t_dirent;
 
 typedef struct s_param
 {
@@ -69,6 +69,7 @@ void		print_lslst(t_lslst *lst);
 //	error.c
 void		pexit(void);
 void		ft_perror(int error, char *arg);
+void		mverif(void *ptr);
 
 //	ft_getcwd.c
 char		*ft_getcwd(char **envp);
@@ -80,7 +81,7 @@ void		ls_path(t_context ctx, char *arg);
 t_context	parse_args(int argc, char **argv, char **envp);
 
 //	print.c
-void		print_content(t_list *content);
+void		print_content(t_list *content, t_param param);
 
 //	resolve.c
 char		*resolve_path(char *arg, char **envp);
