@@ -20,9 +20,12 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 #			SRC
 
 SRC_FILES		=	main		\
+					error		\
 					ft_ls		\
 					ft_getcwd	\
+					print		\
 					resolve		\
+					utils		\
 					verifs		\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
