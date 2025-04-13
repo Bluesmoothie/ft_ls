@@ -6,6 +6,6 @@
 ## What's missing
 -l (partially) -t -R
 
--l need pagination adjustments
--l missing time
+-l need pagination adjustments\
+-l missing time\
 -l miss total
