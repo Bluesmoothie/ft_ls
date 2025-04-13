@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 20:45:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 20:56:46 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ enum	e_erros
 void		process_request(t_context ctx);
 
 //	data.c
-void		get_more_data(t_lslst2 *content);
+void		get_more_data(t_lslst2 *content, char *path);
 
 //	data2.c
 char		*get_owner(int uid);

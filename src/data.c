@@ -6,30 +6,38 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 20:47:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 20:58:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	fill_data(t_lslst2 *content);
+static void	fill_data(t_lslst2 *content, char *path);
 static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst2 *content);
 
-void	get_more_data(t_lslst2 *content)
+void	get_more_data(t_lslst2 *content, char *path)
 {
+	char	*fpath;
+
+	path = ft_strjoin(path, "/");
+	mverif(path);
 	while (content)
 	{
-		fill_data(content);
+		fpath = ft_strjoin(path, content->name);
+		mverif(path);
+		fill_data(content, fpath);
+		free(fpath);
 		content = content->next;
 	}
+	free(path);
 }
 
-static void	fill_data(t_lslst2 *content)
+static void	fill_data(t_lslst2 *content, char *path)
 {
 	t_stat	data;
 
-	stat(content->name, &data);
+	stat(path, &data);
 	content->mode = get_mode(data);
 	get_perms(data, content);
 	content->links = data.st_nlink;

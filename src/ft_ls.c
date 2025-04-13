@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 19:58:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 20:56:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ls_path(t_context ctx, char *arg)
 	if (ctx.param.timesort || ctx.param.longformat)
 		get_file_time(content);
 	if (ctx.param.longformat)
-		get_more_data(content);
+		get_more_data(content, arg);
 	print_content(content, ctx.param);
 	ft_lslst2clear(&content, free);
 	ft_printf("\n");
