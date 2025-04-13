@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:37:25 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 20:54:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int argc, char **argv, char **envp)
 	ctx = parse_args(argc, argv, envp);
 	process_request(ctx);
 	ft_lslstclear(&ctx.lst, free);
+	if (ctx.cwd)
+		free(ctx.cwd);
 	exit(ctx.code);
 }
 

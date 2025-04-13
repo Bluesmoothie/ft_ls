@@ -84,6 +84,12 @@ void	ft_lslst2clear(t_lslst2 **lst, void (*del)(void*))
 	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;
+		if ((*lst)->name)
+			del((*lst)->name);
+		if ((*lst)->group)
+			del((*lst)->group);
+		if ((*lst)->owner)
+			del((*lst)->owner);
 		del(*lst);
 		*lst = tmp;
 	}
