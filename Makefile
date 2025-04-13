@@ -21,6 +21,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 
 SRC_FILES		=	main				\
 					data				\
+					data2				\
 					debug				\
 					error				\
 					ft_getcwd			\

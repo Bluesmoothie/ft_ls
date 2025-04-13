@@ -20,12 +20,25 @@ typedef struct s_lslst2	t_lslst2;
 typedef struct s_lslst2
 {
 	char		*name;
-	int			mode;
+	char		mode;
+	char		perms[10];
+	int			links;
+	char		*owner;
+	char		*group;
+	int			size;
 	t_lslst2	*next;
 }	t_lslst2;
 
+enum	e_lst2modes
+{
+	MLS2_FILE = '-',
+	MLS2_DIR = 'd',
+	MLS2_LNK = 'l',
+	MLS2_INVALID = ' '
+};
+
 //	t_lslst2.c
-t_lslst2		*ft_lslst2new(char *raw_arg);
+t_lslst2		*ft_lslst2new(char *name);
 void			ft_lslst2add_back(t_lslst2 **lst, t_lslst2 *new);
 t_lslst2		*ft_lslst2last(t_lslst2 *lst);
 int				ft_lslst2size(t_lslst2 *lst);

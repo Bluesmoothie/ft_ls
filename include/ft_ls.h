@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 19:55:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 20:45:45 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <pwd.h>
+# include <grp.h>
 
 # include "libft.h"
 # include "ft_printf.h"
@@ -34,6 +36,8 @@
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
+typedef struct passwd	t_passwd;
+typedef struct group	t_group;
 
 typedef struct s_param
 {
@@ -64,7 +68,11 @@ enum	e_erros
 void		process_request(t_context ctx);
 
 //	data.c
-t_lslst2	*get_more_data(t_lslst2 *content);
+void		get_more_data(t_lslst2 *content);
+
+//	data2.c
+char		*get_owner(int uid);
+char		*get_group(int gid);
 
 //	debug.c
 void		print_context(t_context ctx);
@@ -88,7 +96,7 @@ t_context	parse_args(int argc, char **argv, char **envp);
 void		print_content(t_lslst2 *content, t_param param);
 
 //	time.c
-t_lslst2	*get_file_time(t_lslst2 *content);
+void		get_file_time(t_lslst2 *content);
 
 //	resolve.c
 char		*resolve_path(char *arg, char **envp);
