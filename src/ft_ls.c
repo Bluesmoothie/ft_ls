@@ -6,20 +6,20 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:59:19 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 19:56:14 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static t_list	*extract_content(DIR *dir);
-static t_list	*sort_content(t_list *content, t_param param);
+static t_lslst2	*extract_content(DIR *dir);
+static t_lslst2	*sort_content(t_lslst2 *content, t_param param);
 static bool		sort_helper(const char *s1, const char *s2, t_param param);
 
 void	ls_path(t_context ctx, char *arg)
 {
 	DIR			*dir;
-	t_list		*content;
+	t_lslst2	*content;
 
 	dir = opendir(arg);
 	if (!dir)
@@ -31,15 +31,19 @@ void	ls_path(t_context ctx, char *arg)
 		ft_printf("%s:\n", arg);
 	content = extract_content(dir);
 	content = sort_content(content, ctx.param);
+	if (ctx.param.timesort || ctx.param.longformat)
+		content = get_file_time(content);
+	if (ctx.param.longformat)
+		content = get_more_data(content);
 	print_content(content, ctx.param);
-	ft_lstclear(&content, free);
+	ft_lslst2clear(&content, free);
 	ft_printf("\n");
 }
 
-static t_list	*extract_content(DIR *dir)
+static t_lslst2	*extract_content(DIR *dir)
 {
 	t_dirent	*dirent;
-	t_list		*content;
+	t_lslst2	*content;
 	char		*name;
 
 	dirent = readdir_helper(dir);
@@ -48,24 +52,24 @@ static t_list	*extract_content(DIR *dir)
 	{
 		name = ft_strdup(dirent->d_name);
 		mverif(name);
-		ft_lstadd_back(&content, ft_lstnew(name));
+		ft_lslst2add_back(&content, ft_lslst2new(name));
 		dirent = readdir_helper(dir);
 	}
 	closedir(dir);
 	return (content);
 }
 
-static t_list	*sort_content(t_list *content, t_param param)
+static t_lslst2	*sort_content(t_lslst2 *content, t_param param)
 {
-	t_list	*mem;
-	t_list	*swap;
-	t_list	*prev;
+	t_lslst2	*mem;
+	t_lslst2	*swap;
+	t_lslst2	*prev;
 
 	mem = content;
 	prev = NULL;
 	while (content->next)
 	{
-		if (sort_helper(content->content, content->next->content, param))
+		if (sort_helper(content->name, content->next->name, param))
 		{
 			if (mem == content)
 				mem = content->next;

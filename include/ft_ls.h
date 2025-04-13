@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:37:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/13 19:55:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "ft_printf.h"
 
 # include "t_lslst.h"
+# include "t_lslst2.h"
 
 # define MINOR_ERROR	1
 # define MAJOR_ERROR	2	
@@ -62,6 +63,9 @@ enum	e_erros
 //	main.c
 void		process_request(t_context ctx);
 
+//	data.c
+t_lslst2	*get_more_data(t_lslst2 *content);
+
 //	debug.c
 void		print_context(t_context ctx);
 void		print_lslst(t_lslst *lst);
@@ -81,7 +85,10 @@ void		ls_path(t_context ctx, char *arg);
 t_context	parse_args(int argc, char **argv, char **envp);
 
 //	print.c
-void		print_content(t_list *content, t_param param);
+void		print_content(t_lslst2 *content, t_param param);
+
+//	time.c
+t_lslst2	*get_file_time(t_lslst2 *content);
 
 //	resolve.c
 char		*resolve_path(char *arg, char **envp);
