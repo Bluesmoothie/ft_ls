@@ -1,4 +1,4 @@
-### FT_LS
+# FT_LS
 
 ## What's working
 -l (partially) -a -r
