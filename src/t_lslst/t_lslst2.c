@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 21:03:46 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 21:03:58 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 14:12:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,7 @@ void	ft_lslst2clear(t_lslst2 **lst, void (*del)(void*))
 	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;
-		if ((*lst)->name)
-			del((*lst)->name);
-		if ((*lst)->group)
-			del((*lst)->group);
-		if ((*lst)->owner)
-			del((*lst)->owner);
-		del(*lst);
+		ft_lslst2delone(*lst, del);
 		*lst = tmp;
 	}
 }

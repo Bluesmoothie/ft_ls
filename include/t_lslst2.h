@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 21:04:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 21:04:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:14:45 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define T_LSLST2_H
 
 # include <stdlib.h>
+# include <time.h>
 
 typedef struct s_lslst2	t_lslst2;
+typedef struct timespec	t_time;
 
 typedef struct s_lslst2
 {
@@ -26,6 +28,7 @@ typedef struct s_lslst2
 	char		*owner;
 	char		*group;
 	int			size;
+	t_time		*time;
 	t_lslst2	*next;
 }	t_lslst2;
 
@@ -43,5 +46,8 @@ void			ft_lslst2add_back(t_lslst2 **lst, t_lslst2 *new);
 t_lslst2		*ft_lslst2last(t_lslst2 *lst);
 int				ft_lslst2size(t_lslst2 *lst);
 void			ft_lslst2clear(t_lslst2 **lst, void (*del)(void*));
+
+//	t_lslst22.c
+void			ft_lslst2delone(t_lslst2 *lst, void (*del)(void*));
 
 #endif

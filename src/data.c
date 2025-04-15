@@ -6,34 +6,37 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 20:58:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:41:55 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	fill_data(t_lslst2 *content, char *path);
+static int	fill_data(t_lslst2 *content, char *path);
 static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst2 *content);
 
-void	get_more_data(t_lslst2 *content, char *path)
+int	get_more_data(t_lslst2 *content, char *path)
 {
 	char	*fpath;
+	int		size;
 
 	path = ft_strjoin(path, "/");
+	size = 0;
 	mverif(path);
 	while (content)
 	{
 		fpath = ft_strjoin(path, content->name);
 		mverif(path);
-		fill_data(content, fpath);
+		size += fill_data(content, fpath);
 		free(fpath);
 		content = content->next;
 	}
 	free(path);
+	return (size / 2);
 }
 
-static void	fill_data(t_lslst2 *content, char *path)
+static int	fill_data(t_lslst2 *content, char *path)
 {
 	t_stat	data;
 
@@ -44,6 +47,9 @@ static void	fill_data(t_lslst2 *content, char *path)
 	content->owner = get_owner(data.st_uid);
 	content->group = get_group(data.st_gid);
 	content->size = data.st_size;
+	content->time = data.st_mtime;
+	content->time->
+	return (data.st_blocks);
 }
 
 static char	get_mode(t_stat data)

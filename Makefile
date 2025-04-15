@@ -20,6 +20,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 #			SRC
 
 SRC_FILES		=	main				\
+					clean				\
 					data				\
 					data2				\
 					debug				\
@@ -33,6 +34,7 @@ SRC_FILES		=	main				\
 					verifs				\
 					t_lslst/t_lslst		\
 					t_lslst/t_lslst2	\
+					t_lslst/t_lslst22	\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))

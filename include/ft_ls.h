@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 20:56:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:09:36 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ enum	e_erros
 //	main.c
 void		process_request(t_context ctx);
 
+//	clean.c
+t_lslst2	*remove_ucontent(t_lslst2 *content, t_param param);
+
 //	data.c
-void		get_more_data(t_lslst2 *content, char *path);
+int			get_more_data(t_lslst2 *content, char *path);
 
 //	data2.c
 char		*get_owner(int uid);
@@ -93,7 +96,10 @@ void		ls_path(t_context ctx, char *arg);
 t_context	parse_args(int argc, char **argv, char **envp);
 
 //	print.c
-void		print_content(t_lslst2 *content, t_param param);
+void		print_content(t_lslst2 *content, t_param param, int size);
+
+//	sort.c
+t_lslst2	*sort_content(t_lslst2 *content, t_param param);
 
 //	time.c
 void		get_file_time(t_lslst2 *content);
