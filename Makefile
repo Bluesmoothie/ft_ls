@@ -29,6 +29,7 @@ SRC_FILES		=	main				\
 					ft_ls				\
 					parse				\
 					print				\
+					sort				\
 					time				\
 					utils				\
 					verifs				\

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 15:41:55 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:10:33 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	fill_data(t_lslst2 *content, char *path)
 	content->group = get_group(data.st_gid);
 	content->size = data.st_size;
 	content->time = data.st_mtime;
-	content->time->
 	return (data.st_blocks);
 }
 

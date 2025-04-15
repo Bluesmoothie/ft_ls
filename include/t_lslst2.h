@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 21:04:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 15:14:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:21:59 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include <stdlib.h>
 # include <time.h>
+# include "libft.h"
 
-typedef struct s_lslst2	t_lslst2;
-typedef struct timespec	t_time;
+typedef struct s_lslst2	t_lslst2; 
 
 typedef struct s_lslst2
 {
@@ -28,7 +28,7 @@ typedef struct s_lslst2
 	char		*owner;
 	char		*group;
 	int			size;
-	t_time		*time;
+	time_t		time;
 	t_lslst2	*next;
 }	t_lslst2;
 

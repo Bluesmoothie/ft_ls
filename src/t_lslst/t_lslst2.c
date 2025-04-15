@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 21:03:46 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 14:12:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:22:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ t_lslst2	*ft_lslst2new(char *name)
 {
 	t_lslst2	*new;
 
-	new = malloc (sizeof(t_lslst2));
+	new = ft_calloc (1, sizeof(t_lslst2));
 	if (new != NULL)
-	{
 		new->name = name;
-		new->next = NULL;
-	}
 	return (new);
 }
 
