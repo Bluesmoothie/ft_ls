@@ -31,7 +31,6 @@ SRC_FILES		=	main				\
 					parse				\
 					print				\
 					sort				\
-					time				\
 					utils				\
 					verifs				\
 					t_lslst/t_lslst		\

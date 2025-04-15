@@ -6,18 +6,18 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 18:45:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:19:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	fill_data(t_lslst2 *content, char *path);
+static int	fill_data(t_lslst2 *content, char *path, bool moremore);
 static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst2 *content);
-static char	*time_helper(time_t time);;
+static char	*time_helper(time_t time);
 
-int	get_more_data(t_lslst2 *content, char *path)
+int	get_more_data(t_lslst2 *content, char *path, bool moremore)
 {
 	t_lslst2	*lst;
 	char		*fpath;
@@ -31,7 +31,7 @@ int	get_more_data(t_lslst2 *content, char *path)
 	{
 		fpath = ft_strjoin(path, content->name);
 		mverif(path);
-		size += fill_data(content, fpath);
+		size += fill_data(content, fpath, moremore);
 		free(fpath);
 		content = content->next;
 	}
@@ -40,18 +40,22 @@ int	get_more_data(t_lslst2 *content, char *path)
 	return (size / 2);
 }
 
-static int	fill_data(t_lslst2 *content, char *path)
+static int	fill_data(t_lslst2 *content, char *path, bool moremore)
 {
 	t_stat	data;
 
 	stat(path, &data);
-	content->mode = get_mode(data);
-	get_perms(data, content);
-	content->links = ft_itoa(data.st_nlink);
-	content->owner = get_owner(data.st_uid);
-	content->group = get_group(data.st_gid);
-	content->size = ft_itoa(data.st_size);
-	content->time = time_helper(data.st_mtime);
+	if (moremore)
+	{
+		content->mode = get_mode(data);
+		get_perms(data, content);
+		content->links = ft_itoa(data.st_nlink);
+		content->owner = get_owner(data.st_uid);
+		content->group = get_group(data.st_gid);
+		content->size = ft_itoa(data.st_size);
+		content->time = time_helper(data.st_mtime);
+	}
+	content->timev = data.st_mtime;
 	return (data.st_blocks);
 }
 

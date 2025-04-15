@@ -6,13 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:45:34 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 14:57:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:19:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static t_lslst2	*time_sort(t_lslst2 *content, t_param param);
+static t_lslst2	*time_sort(t_lslst2 *content);
 static t_lslst2	*alpha_sort(t_lslst2 *content, t_param param);
 static bool		sort_helper(const char *s1, const char *s2, t_param param);
 static void		swaper(t_lslst2 **prev, t_lslst2 **content);
@@ -20,11 +20,11 @@ static void		swaper(t_lslst2 **prev, t_lslst2 **content);
 t_lslst2	*sort_content(t_lslst2 *content, t_param param)
 {
 	if (param.timesort)
-		return (time_sort(content, param));
+		return (time_sort(content));
 	return (alpha_sort(content, param));
 }
 
-static t_lslst2	*time_sort(t_lslst2 *content, t_param param)
+static t_lslst2	*time_sort(t_lslst2 *content)
 {
 	t_lslst2	*mem;
 	t_lslst2	*swap;
@@ -34,7 +34,7 @@ static t_lslst2	*time_sort(t_lslst2 *content, t_param param)
 	prev = NULL;
 	while (content->next)
 	{
-		if (sort_helper(content->name, content->next->name, param))
+		if ((content->timev < content->next->timev))
 		{
 			if (mem == content)
 				mem = content->next;

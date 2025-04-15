@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 14:50:18 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:17:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ void	ls_path(t_context ctx, char *arg)
 		ft_printf("%s:\n", arg);
 	content = extract_content(dir);
 	content = remove_ucontent(content, ctx.param);
-	if (ctx.param.timesort || ctx.param.longformat)
-		get_file_time(content);
+	if (ctx.param.longformat || ctx.param.timesort)
+		size = get_more_data(content, arg, ctx.param.longformat);
 	content = sort_content(content, ctx.param);
-	if (ctx.param.longformat)
-		size = get_more_data(content, arg);
 	print_content(content, ctx.param, size);
 	ft_lslst2clear(&content, free);
 	ft_printf("\n");

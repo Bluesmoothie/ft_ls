@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 18:24:34 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:16:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		align_data(t_lslst2 *content);
 t_lslst2	*remove_ucontent(t_lslst2 *content, t_param param);
 
 //	data.c
-int			get_more_data(t_lslst2 *content, char *path);
+int			get_more_data(t_lslst2 *content, char *path, bool moremore);
 
 //	data2.c
 char		*get_owner(int uid);
@@ -103,9 +103,6 @@ void		print_content(t_lslst2 *content, t_param param, int size);
 
 //	sort.c
 t_lslst2	*sort_content(t_lslst2 *content, t_param param);
-
-//	time.c
-void		get_file_time(t_lslst2 *content);
 
 //	resolve.c
 char		*resolve_path(char *arg, char **envp);
