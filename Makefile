@@ -20,6 +20,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 #			SRC
 
 SRC_FILES		=	main				\
+					align				\
 					clean				\
 					data				\
 					data2				\

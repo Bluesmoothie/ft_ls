@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 21:04:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 17:21:59 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:24:41 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,29 @@
 # include <time.h>
 # include "libft.h"
 
-typedef struct s_lslst2	t_lslst2; 
+typedef struct s_lslst2		t_lslst2;
+
+typedef struct s_align_sizes
+{
+	size_t	links;
+	size_t	owner;
+	size_t	group;
+	size_t	size;
+	size_t	time;
+}	t_align_sizes;
 
 typedef struct s_lslst2
 {
-	char		*name;
-	char		mode;
-	char		perms[10];
-	int			links;
-	char		*owner;
-	char		*group;
-	int			size;
-	time_t		time;
-	t_lslst2	*next;
+	char			*name;
+	char			mode;
+	char			perms[10];
+	char			*links;
+	char			*owner;
+	char			*group;
+	char			*size;
+	char			*time;
+	t_align_sizes	sizes;
+	t_lslst2		*next;
 }	t_lslst2;
 
 enum	e_lst2modes

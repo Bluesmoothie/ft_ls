@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 16:10:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:45:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 static int	fill_data(t_lslst2 *content, char *path);
 static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst2 *content);
+static char	*time_helper(time_t time);;
 
 int	get_more_data(t_lslst2 *content, char *path)
 {
-	char	*fpath;
-	int		size;
+	t_lslst2	*lst;
+	char		*fpath;
+	int			size;
 
+	lst = content;
 	path = ft_strjoin(path, "/");
 	size = 0;
 	mverif(path);
@@ -33,6 +36,7 @@ int	get_more_data(t_lslst2 *content, char *path)
 		content = content->next;
 	}
 	free(path);
+	align_data(lst);
 	return (size / 2);
 }
 
@@ -43,11 +47,11 @@ static int	fill_data(t_lslst2 *content, char *path)
 	stat(path, &data);
 	content->mode = get_mode(data);
 	get_perms(data, content);
-	content->links = data.st_nlink;
+	content->links = ft_itoa(data.st_nlink);
 	content->owner = get_owner(data.st_uid);
 	content->group = get_group(data.st_gid);
-	content->size = data.st_size;
-	content->time = data.st_mtime;
+	content->size = ft_itoa(data.st_size);
+	content->time = time_helper(data.st_mtime);
 	return (data.st_blocks);
 }
 
@@ -84,4 +88,25 @@ static void	get_perms(t_stat data, t_lslst2 *content)
 		content->perms[7] = 'w';
 	if (S_IXOTH & data.st_mode)
 		content->perms[8] = 'x';
+}
+
+static char	*time_helper(time_t time)
+{
+	char	*time_str;
+	char	*tmp;
+	size_t	start;
+	size_t	end;
+
+	tmp = ctime(&time);
+	mverif(tmp);
+	start = 0;
+	end = 0;
+	while (tmp[start] != ' ')
+		start++;
+	while (tmp[end] != ':')
+		end++;
+	end += 3;
+	time_str = ft_substr(tmp, start, end - start);
+	mverif(time_str);
+	return (time_str);
 }

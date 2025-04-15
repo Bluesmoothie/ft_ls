@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 15:09:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:24:34 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ enum	e_erros
 
 //	main.c
 void		process_request(t_context ctx);
+
+//	align.c
+void		align_data(t_lslst2 *content);
 
 //	clean.c
 t_lslst2	*remove_ucontent(t_lslst2 *content, t_param param);
