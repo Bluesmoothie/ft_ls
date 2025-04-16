@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 19:16:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:34:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ t_context	parse_args(int argc, char **argv, char **envp);
 void		print_content(t_lslst2 *content, t_param param, int size);
 
 //	sort.c
-t_lslst2	*sort_content(t_lslst2 *content, t_param param);
+t_lslst2	*time_sort(t_lslst2 *content, t_param param);
+t_lslst2	*alpha_sort(t_lslst2 *content, t_param param);
 
 //	resolve.c
 char		*resolve_path(char *arg, char **envp);

@@ -6,13 +6,14 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 19:17:20 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:34:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 static t_lslst2	*extract_content(DIR *dir);
+static t_lslst2	*sort_content(t_lslst2 *content, t_param param);
 
 void	ls_path(t_context ctx, char *arg)
 {
@@ -56,4 +57,11 @@ static t_lslst2	*extract_content(DIR *dir)
 	}
 	closedir(dir);
 	return (content);
+}
+
+static t_lslst2	*sort_content(t_lslst2 *content, t_param param)
+{
+	if (param.timesort)
+		return (time_sort(content, param));
+	return (alpha_sort(content, param));
 }
