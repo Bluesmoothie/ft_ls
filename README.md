@@ -4,7 +4,7 @@
 -l -a -r -t
 
 ## What's missing
--R
+-R (WIP)
 
 ## TODO
 Show year in place of time if lm_year != current_year
