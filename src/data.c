@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 12:22:07 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 17:18:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static char	*time_helper(time_t ftime)
 	time_t	fcurrent;
 	char	*tmp;
 	char	*current;
+	char	*result;
 
 	fcurrent = time(NULL);
 	current = ctime(&fcurrent);
@@ -107,6 +108,10 @@ static char	*time_helper(time_t ftime)
 	tmp = ctime(&ftime);
 	mverif(tmp);
 	if (!ft_strnstr(tmp, current, ft_strlen(tmp)))
-		return (old_time(tmp));
-	return (normal_time(tmp));
+		result = old_time(tmp);
+	else
+		result = normal_time(tmp);
+	free(current);
+	free(tmp);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:11:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 15:07:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 17:13:26 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ static void	parse_option(t_param *param, char *option)
 static void	parse_argument(t_lslst **lst, char *argument)
 {
 	t_lslst	*new;
+	char	*name;
 
-	new = ft_lslstnew(argument);
+	name = mverif(ft_strdup(argument));
+	new = ft_lslstnew(name);
 	if (!new)
 		exit(-1);
 	ft_lslstadd_back(lst, new);
