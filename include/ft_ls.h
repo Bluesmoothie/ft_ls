@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 11:34:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:16:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int			get_more_data(t_lslst2 *content, char *path, bool moremore);
 //	data2.c
 char		*get_owner(int uid);
 char		*get_group(int gid);
+char		*normal_time(char *src);
+char		*old_time(char *src);
 
 //	debug.c
 void		print_context(t_context ctx);
@@ -87,7 +89,7 @@ void		print_lslst(t_lslst *lst);
 //	error.c
 void		pexit(void);
 void		ft_perror(int error, char *arg);
-void		mverif(void *ptr);
+void		*mverif(void *ptr);
 
 //	ft_getcwd.c
 char		*ft_getcwd(char **envp);

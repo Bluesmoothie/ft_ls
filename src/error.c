@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:37:47 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:35:18 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:16:33 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	ft_perror(int error, char *arg)
 	free(str2);
 }
 
-void	mverif(void *ptr)
+void	*mverif(void *ptr)
 {
 	if (!ptr)
 		exit(-1);
+	return (ptr);
 }

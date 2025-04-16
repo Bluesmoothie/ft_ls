@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/15 18:43:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:24:35 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void	align_data(t_lslst2 *content)
 	max = calc_max(content);
 	while (content)
 	{
-		content->group = resize_to(content->group, max.group, content->sizes.group);
-		content->links = resize_to(content->links, max.links, content->sizes.links);
-		content->owner = resize_to(content->owner, max.owner, content->sizes.owner);
+		content->group = resize_to(content->group, max.group,
+				content->sizes.group);
+		content->links = resize_to(content->links, max.links,
+				content->sizes.links);
+		content->owner = resize_to(content->owner, max.owner,
+				content->sizes.owner);
 		content->size = resize_to(content->size, max.size, content->sizes.size);
 		content->time = resize_to(content->time, max.time, content->sizes.time);
 		content = content->next;

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:45:34 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 11:54:14 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:23:48 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,12 @@ static bool	time_sort_helper(t_lslst2 *c1, t_lslst2 *c2, t_param param)
 	bool	result;
 
 	result = false;
-	if (c1->mtime.tv_sec == c2->mtime.tv_sec && c1->mtime.tv_nsec == c2->mtime.tv_nsec)
+	if (c1->mtime.tv_sec == c2->mtime.tv_sec
+		&& c1->mtime.tv_nsec == c2->mtime.tv_nsec)
 		return (sort_helper(c1->name, c2->name, param));
-	if ((c1->mtime.tv_sec == c2->mtime.tv_sec && c1->mtime.tv_nsec < c2->mtime.tv_nsec) || c1->mtime.tv_sec < c2->mtime.tv_sec)
+	if ((c1->mtime.tv_sec == c2->mtime.tv_sec
+			&& c1->mtime.tv_nsec < c2->mtime.tv_nsec)
+		|| c1->mtime.tv_sec < c2->mtime.tv_sec)
 		result = true;
 	if (param.reverse)
 		return (!result);

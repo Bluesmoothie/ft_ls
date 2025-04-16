@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 11:41:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:22:07 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	fill_data(t_lslst2 *content, char *path, bool moremore);
 static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst2 *content);
-static char	*time_helper(time_t time);
+static char	*time_helper(time_t ftime);
 
 int	get_more_data(t_lslst2 *content, char *path, bool moremore)
 {
@@ -94,23 +94,19 @@ static void	get_perms(t_stat data, t_lslst2 *content)
 		content->perms[8] = 'x';
 }
 
-static char	*time_helper(time_t time)
+static char	*time_helper(time_t ftime)
 {
-	char	*time_str;
+	time_t	fcurrent;
 	char	*tmp;
-	size_t	start;
-	size_t	end;
+	char	*current;
 
-	tmp = ctime(&time);
+	fcurrent = time(NULL);
+	current = ctime(&fcurrent);
+	current = ft_substr(current, ft_strlen(current) - 5, 5);
+	mverif(current);
+	tmp = ctime(&ftime);
 	mverif(tmp);
-	start = 0;
-	end = 0;
-	while (tmp[start] != ' ')
-		start++;
-	while (tmp[end] != ':')
-		end++;
-	end += 3;
-	time_str = ft_substr(tmp, start, end - start);
-	mverif(time_str);
-	return (time_str);
+	if (!ft_strnstr(tmp, current, ft_strlen(tmp)))
+		return (old_time(tmp));
+	return (normal_time(tmp));
 }
