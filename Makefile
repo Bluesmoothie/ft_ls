@@ -26,7 +26,6 @@ SRC_FILES		=	main				\
 					data2				\
 					debug				\
 					error				\
-					ft_getcwd			\
 					ft_ls				\
 					parse				\
 					print				\

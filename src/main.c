@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 20:54:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:21:26 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 static bool	file_listed(t_lslst *lst);
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv)
 {
 	t_context	ctx;
 
-	ctx = parse_args(argc, argv, envp);
+	ctx = parse_args(argc, argv);
 	process_request(ctx);
 	ft_lslstclear(&ctx.lst, free);
-	if (ctx.cwd)
-		free(ctx.cwd);
 	exit(ctx.code);
 }
 
@@ -30,8 +28,6 @@ void	process_request(t_context ctx)
 {
 	t_lslst	*lst;
 
-	if (ctx.cwd_mode)
-		return (ls_path(ctx, ctx.cwd));
 	verif_paths(ctx.lst);
 	lst = ctx.lst;
 	while (lst)

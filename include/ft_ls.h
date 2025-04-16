@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 12:16:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:21:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define MINOR_ERROR	1
 # define MAJOR_ERROR	2	
 
+# define DIRTYPE_DIR	4
+
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
@@ -54,8 +56,6 @@ typedef struct s_context
 	t_lslst	*lst;
 	int		code;
 	bool	multiple;
-	bool	cwd_mode;
-	char	*cwd;
 }	t_context;
 
 enum	e_erros
@@ -91,14 +91,11 @@ void		pexit(void);
 void		ft_perror(int error, char *arg);
 void		*mverif(void *ptr);
 
-//	ft_getcwd.c
-char		*ft_getcwd(char **envp);
-
 //	ft_ls.c
 void		ls_path(t_context ctx, char *arg);
 
 //	parse.c
-t_context	parse_args(int argc, char **argv, char **envp);
+t_context	parse_args(int argc, char **argv);
 
 //	print.c
 void		print_content(t_lslst2 *content, t_param param, int size);

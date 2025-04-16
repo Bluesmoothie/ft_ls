@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:11:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/13 00:35:58 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:21:33 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_option(t_param *param, char *option);
 void	parse_argument(t_lslst **lst, char *argument);
 
-t_context	parse_args(int argc, char **argv, char **envp)
+t_context	parse_args(int argc, char **argv)
 {
 	t_context	ctx;
 	int			i;
@@ -33,10 +33,7 @@ t_context	parse_args(int argc, char **argv, char **envp)
 	}
 	size = ft_lslstsize(ctx.lst);
 	if (!size)
-	{
-		ctx.cwd = ft_getcwd(envp);
-		ctx.cwd_mode = true;
-	}
+		parse_argument(&ctx.lst, ".");
 	else if (size > 1)
 		ctx.multiple = true;
 	return (ctx);

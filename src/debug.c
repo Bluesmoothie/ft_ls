@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:13:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/12 23:45:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:20:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,11 @@ void	print_context(t_context ctx)
 		ft_printf("Unique argument detected\n\n");
 	else
 		ft_printf("Multiple arguments detected\n\n");
-	if (ctx.cwd_mode)
+	ft_printf("Arguments :\n");
+	while (ctx.lst)
 	{
-		ft_printf("Cwd mode detected on :\n");
-		ft_printf("%s\n", ctx.cwd);
-	}
-	else
-	{
-		ft_printf("Arguments :\n");
-		while (ctx.lst)
-		{
-			ft_printf("%s\n", ctx.lst->raw_arg);
-			ctx.lst = ctx.lst->next;
-		}
+		ft_printf("%s\n", ctx.lst->raw_arg);
+		ctx.lst = ctx.lst->next;
 	}
 	ft_printf("\nResult :\n_____\n");
 }
