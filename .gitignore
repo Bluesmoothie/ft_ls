@@ -11,3 +11,4 @@ testf/
 .VSCodeCounter/
 🎠
 testln
+callgrind.out.*
