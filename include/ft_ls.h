@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 14:34:14 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 16:52:51 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_context	parse_args(int argc, char **argv);
 void		print_content(t_lslst2 *content, t_param param, int size);
 
 //	recursive.c
-void		add_subfolder(t_context ctx, char *name);
+void		add_subfolder(t_context ctx, char *name, char *upper);
 
 //	sort.c
 t_lslst2	*time_sort(t_lslst2 *content, t_param param);

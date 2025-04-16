@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:11:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 14:32:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 15:07:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_context	parse_args(int argc, char **argv)
 	size = ft_lslstsize(ctx.lst);
 	if (!size)
 		parse_argument(&ctx.lst, ".");
-	else if (size > 1 || ctx.param.recursive)
+	else if (size > 1)
 		ctx.multiple = true;
 	return (ctx);
 }
