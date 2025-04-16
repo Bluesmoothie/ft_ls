@@ -6,14 +6,14 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:11:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 14:21:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:32:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	parse_option(t_param *param, char *option);
-void	parse_argument(t_lslst **lst, char *argument);
+static void	parse_option(t_param *param, char *option);
+static void	parse_argument(t_lslst **lst, char *argument);
 
 t_context	parse_args(int argc, char **argv)
 {
@@ -34,12 +34,12 @@ t_context	parse_args(int argc, char **argv)
 	size = ft_lslstsize(ctx.lst);
 	if (!size)
 		parse_argument(&ctx.lst, ".");
-	else if (size > 1)
+	else if (size > 1 || ctx.param.recursive)
 		ctx.multiple = true;
 	return (ctx);
 }
 
-void	parse_option(t_param *param, char *option)
+static void	parse_option(t_param *param, char *option)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ void	parse_option(t_param *param, char *option)
 	}
 }
 
-void	parse_argument(t_lslst **lst, char *argument)
+static void	parse_argument(t_lslst **lst, char *argument)
 {
 	t_lslst	*new;
 
