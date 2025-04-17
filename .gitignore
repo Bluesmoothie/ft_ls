@@ -12,3 +12,7 @@ testf/
 🎠
 testln
 callgrind.out.*
+ACL
+EXTENDED
+ft_ls_bonus
+.build_bonus/
