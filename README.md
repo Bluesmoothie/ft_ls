@@ -21,7 +21,7 @@
 -g : -l without owner\
 -d : list directories ?\
 
-May add : \
+### May add :
 -U : needed for -f\
 -c : like -u but with creation time\
 -A : do not list . and ..\
