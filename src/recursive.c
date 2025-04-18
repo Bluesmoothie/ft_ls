@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:06:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 17:19:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/18 20:20:43 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ void	add_subfolder(t_context ctx, char *name, char *upper)
 	if (!ft_strcmp(name, ".") || !ft_strcmp(name, "..")
 		|| (!ctx.param.hidden && !ft_strncmp(name, ".", 1)))
 		return ;
-	tmp = mverif(ft_strjoin(upper, "/"));
-	path = mverif(ft_strjoin(tmp, name));
-	free(tmp);
+	if (ft_strncmp(&upper[ft_strlen(upper) - 1], "/", 1))
+	{
+		tmp = mverif(ft_strjoin(upper, "/"));
+		path = mverif(ft_strjoin(tmp, name));
+		free(tmp);
+	}
+	else
+		path = mverif(ft_strjoin(upper, name));
 	new = ft_lslstnew(path);
 	if (!new)
 		exit(-1);
