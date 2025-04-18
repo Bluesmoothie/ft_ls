@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 16:52:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/18 19:48:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	ls_path(t_context ctx, char *arg)
 	if (ctx.param.longformat || ctx.param.timesort)
 		size = get_more_data(content, arg, ctx.param.longformat);
 	content = sort_content(content, ctx.param);
-	get_subfolders(content, ctx, arg);
+	if (ctx.param.recursive)
+		get_subfolders(content, ctx, arg);
 	print_content(content, ctx.param, size);
 	ft_lslst2clear(&content, free);
 	ft_printf("\n");
