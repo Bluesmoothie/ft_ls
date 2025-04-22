@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:17:40 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:40:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,9 @@ void		add_subfolder(t_context ctx, char *name, char *upper);
 //	sort.c
 t_lslst		*time_sort(t_lslst *content, t_param param);
 t_lslst		*alpha_sort(t_lslst *content, t_param param);
+
+//	specials.c
+void		special_options(char *option);
 
 //	time.c
 char		*normal_time(char *src);

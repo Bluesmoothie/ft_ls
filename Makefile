@@ -51,7 +51,7 @@ BONUS_SRC_DIR	=	src_bonus/
 BONUS_INCLUDE 	=	-Iinclude_bonus/ -I$(LIBFT)/include/
 
 BONUS_SRC_FILES =	$(SRC_FILES)
-BONUS_SRC_FILES	+=	
+BONUS_SRC_FILES	+=	specials			\
 
 BONUS_SRC 		= 	$(addprefix $(BONUS_SRC_DIR), $(addsuffix .c, $(BONUS_SRC_FILES)))
 BONUS_OBJ 		= 	$(addprefix $(BONUS_BUILD_DIR), $(addsuffix .o, $(BONUS_SRC_FILES)))

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 22:11:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 11:06:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:37:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,27 @@ static void	parse_option(t_param *param, char *option)
 	i = 1;
 	while (option[i])
 	{
-		if (option[i] == 'l')
-			param->longformat = true;
-		else if (option[i] == 'R')
-			param->recursive = true;
-		else if (option[i] == 'a')
-			param->hidden = true;
-		else if (option[i] == 'r')
-			param->reverse = true;
-		else if (option[i] == 't')
-			param->timesort = true;
+		switch (option[i])
+		{
+			case	'l':
+				param->longformat = true;
+				break;
+			case	'R':
+				param->recursive = true;
+				break;
+			case	'a':
+				param->hidden = true;
+				break;
+			case	'r':
+				param->reverse = true;
+				break;
+			case	't':
+				param->timesort = true;
+				break;
+			default:
+				ft_printf("ft_ls: invalid option -- '%c'\n", option[i]);
+				exit (-1);
+		}
 		i++;
 	}
 }

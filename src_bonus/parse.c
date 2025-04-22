@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:29:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:45:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ static void	parse_option(t_param *param, char *option)
 				if (param->longformat == SM_FALSE)
 					param->longformat = SM_TRUE;
 				break;
+			case	'-':
+				if (i == 1)
+					special_options(&option[2]);
+			default:
+				ft_printf("ft_ls: invalid option -- '%c'\n", option[i]);
+				ft_printf("Try 'ft_ls --help' for more information.\n");
+				exit (-1);
 		}
 		i++;
 	}
