@@ -37,8 +37,7 @@
 --help --color and --version\
 
 ## TODO
-Optimization !\
-Caching group and user strings
+Optimization !
 
 ## Notes
 Not exactly the same order as ls in recursive mode (-R), for the rest it's an exact copy (I think) !

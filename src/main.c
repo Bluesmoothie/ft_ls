@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 12:10:27 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 12:56:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	main(int argc, char **argv)
 	t_context	ctx;
 
 	ctx = parse_args(argc, argv);
+	init_cache(&ctx);
 	process_request(ctx);
+	free_cache(ctx);
 	exit(ctx.code);
 }
 

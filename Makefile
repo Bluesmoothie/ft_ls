@@ -21,15 +21,16 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 
 SRC_FILES		=	main				\
 					align				\
+					cache				\
 					clean				\
 					data				\
-					data2				\
 					error				\
 					ft_ls				\
 					parse				\
 					print				\
 					recursive			\
 					sort				\
+					time				\
 					utils				\
 					t_lslst/t_lslst		\
 					t_lslst/t_lslst2	\

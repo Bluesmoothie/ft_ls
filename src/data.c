@@ -6,13 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 12:24:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 13:00:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	fill_data(t_lslst *content, char *path, bool moremore);
+static int	fill_data(t_context ctx, t_lslst *content, char *path, bool moremore);
 static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst *content);
 static char	*time_helper(time_t ftime);
@@ -20,7 +20,7 @@ static char	*time_helper(time_t ftime);
 /*
 **	Get more data for longformat output
 */
-int	get_more_data(t_lslst *content, char *path, bool moremore)
+int	get_more_data(t_context ctx, t_lslst *content, char *path, bool moremore)
 {
 	t_lslst	*lst;
 	char		*fpath;
@@ -34,7 +34,7 @@ int	get_more_data(t_lslst *content, char *path, bool moremore)
 	{
 		fpath = ft_strjoin(path, content->name);
 		mverif(path);
-		size += fill_data(content, fpath, moremore);
+		size += fill_data(ctx, content, fpath, moremore);
 		free(fpath);
 		content = content->next;
 	}
@@ -43,7 +43,7 @@ int	get_more_data(t_lslst *content, char *path, bool moremore)
 	return (size / 2);
 }
 
-static int	fill_data(t_lslst *content, char *path, bool moremore)
+static int	fill_data(t_context ctx, t_lslst *content, char *path, bool moremore)
 {
 	t_stat	data;
 
@@ -53,8 +53,8 @@ static int	fill_data(t_lslst *content, char *path, bool moremore)
 		content->mode = get_mode(data);
 		get_perms(data, content);
 		content->links = ft_itoa(data.st_nlink);
-		content->owner = get_owner(data.st_uid);
-		content->group = get_group(data.st_gid);
+		content->owner = get_owner(ctx, data.st_uid);
+		content->group = get_group(ctx, data.st_gid);
 		content->size = ft_itoa(data.st_size);
 		content->time = time_helper(data.st_mtime);
 	}
