@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:03:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:10:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	parse_option(t_param *param, char *option)
 				break;
 			case	'u':
 				param->time_mode = TM_ACCESS;
+				if (param->timesort == SM_FALSE)
+					param->timesort = SM_TRUE;
 				break;
 			case	'f':
 				param->hidden = true;
@@ -86,6 +88,11 @@ static void	parse_option(t_param *param, char *option)
 				break;
 			case	'U':
 				param->sort = false;
+				break;
+			case	'c':
+				param->time_mode = TM_CREATE;
+				if (param->timesort == SM_FALSE)
+					param->timesort = SM_TRUE;
 				break;
 		}
 		i++;

@@ -15,7 +15,8 @@
 
 ### What's working
 -u : sort by access (-ltu : sort by and show) (-lu : show and sort by name)\
--f : do not sort (add -aU and suppress color)\
+-c : like -u but with creation time\
+-f : add -aU and suppress color\
 -U : dot not sort\
 
 ### What's missing
@@ -23,12 +24,11 @@
 -d : list directories ?\
 
 ### May add :
--c : like -u but with creation time\
+-o : -l without group\
 -A : do not list . and ..\
 -G : don't list groups in -l\
 -m : comma separated output\
 -n : -l with numeric group and owner\
--o : -l without group\
 -p : append / to directories\
 -S : sort by size\
 -x : sort by line, not column\

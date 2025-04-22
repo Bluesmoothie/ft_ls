@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:05:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:09:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	fill_data(t_context ctx, t_lslst *content, char *path, char moremore)
 				content->time = time_helper(data.st_mtime);
 				break;
 			case	TM_CREATE:
+				content->time = time_helper(data.st_ctime);
 				break;
 		}
 	}
@@ -77,6 +78,7 @@ static int	fill_data(t_context ctx, t_lslst *content, char *path, char moremore)
 			content->mtime = data.st_mtim;
 			break;
 		case	TM_CREATE:
+			content->mtime = data.st_ctim;
 			break;
 	}
 	return (data.st_blocks);
