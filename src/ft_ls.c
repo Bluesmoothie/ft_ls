@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:10:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 11:43:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 12:23:18 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ static t_lslst	*extract_content(DIR *dir, t_context ctx);
 static t_lslst	*sort_content(t_lslst *content, t_param param);
 static void		get_subfolders(t_lslst *content, t_context ctx, char *upper);
 
+/*
+**	Get and print dir content from arg according to params
+**	add found directories to list if in recursive mode
+*/
 void	ls_path(t_context ctx, char *arg)
 {
 	DIR			*dir;
@@ -43,6 +47,9 @@ void	ls_path(t_context ctx, char *arg)
 	ft_printf("\n");
 }
 
+/*
+**	Create a list of the content of dir
+*/
 static t_lslst	*extract_content(DIR *dir, t_context ctx)
 {
 	t_dirent	*dirent;
@@ -75,6 +82,9 @@ static t_lslst	*sort_content(t_lslst *content, t_param param)
 	return (alpha_sort(content, param));
 }
 
+/*
+**	For recursive mode
+*/
 static void	get_subfolders(t_lslst *content, t_context ctx, char *upper)
 {
 	while (content)

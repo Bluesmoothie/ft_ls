@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 11:16:31 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 12:24:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static char	get_mode(t_stat data);
 static void	get_perms(t_stat data, t_lslst *content);
 static char	*time_helper(time_t ftime);
 
+/*
+**	Get more data for longformat output
+*/
 int	get_more_data(t_lslst *content, char *path, bool moremore)
 {
 	t_lslst	*lst;

@@ -31,7 +31,6 @@ SRC_FILES		=	main				\
 					recursive			\
 					sort				\
 					utils				\
-					verifs				\
 					t_lslst/t_lslst		\
 					t_lslst/t_lslst2	\
 

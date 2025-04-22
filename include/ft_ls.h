@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 11:21:51 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 12:25:18 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ char		*resolve_path(char *arg, char **envp);
 //	utils.c
 t_dirent	*readdir_helper(DIR *dir);
 int			ft_strcmp_casei(const char *s1, const char *s2);
-
-//	verifs.c
 void		verif_paths(t_list *lst, t_list **files, t_list **directories);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 11:22:53 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 12:10:27 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int argc, char **argv)
 }
 
 /*
-**	Verify arguments paths and iter the list
-**	files are shown first
+**	Verify arguments paths print filenames
+**	then iter directories list
 */
 void	process_request(t_context ctx)
 {
