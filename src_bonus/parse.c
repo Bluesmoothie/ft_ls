@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:10:58 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:16:11 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	parse_option(t_param *param, char *option);
 static void	parse_argument(t_list **lst, char *argument);
+static void	complete_options(t_param *param);
 
 /*
 **	Parse the argv, searching for options and arguments
@@ -35,6 +36,7 @@ t_context	parse_args(int argc, char **argv)
 			parse_argument(&ctx.args, argv[i]);
 		i++;
 	}
+	complete_options(&ctx.param);
 	size = ft_lstsize(ctx.args);
 	if (!size)
 		parse_argument(&ctx.args, ".");
@@ -75,8 +77,6 @@ static void	parse_option(t_param *param, char *option)
 				break;
 			case	'u':
 				param->time_mode = TM_ACCESS;
-				if (param->timesort == SM_FALSE)
-					param->timesort = SM_TRUE;
 				break;
 			case	'f':
 				param->hidden = true;
@@ -91,8 +91,6 @@ static void	parse_option(t_param *param, char *option)
 				break;
 			case	'c':
 				param->time_mode = TM_CREATE;
-				if (param->timesort == SM_FALSE)
-					param->timesort = SM_TRUE;
 				break;
 		}
 		i++;
@@ -112,4 +110,10 @@ static void	parse_argument(t_list **lst, char *argument)
 	if (!new)
 		exit(-1);
 	ft_lstadd_back(lst, new);
+}
+
+static void	complete_options(t_param *param)
+{
+	if (!param->longformat && param->time_mode)
+		param->timesort = true;
 }
