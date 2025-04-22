@@ -14,9 +14,9 @@
 ## Bonus
 
 ### What's working
+-u : sort by access (-ltu : sort by and show) (-lu : show and sort by name)\
 
 ### What's missing
--u : sort by access (-ltu : sort by and show) (-lu : show and sort by name)\
 -f : do not sort (add -aU and suppress color)\
 -g : -l without owner\
 -d : list directories ?\

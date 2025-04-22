@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 13:00:16 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 13:44:49 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,29 @@ static int	fill_data(t_context ctx, t_lslst *content, char *path, bool moremore)
 		content->owner = get_owner(ctx, data.st_uid);
 		content->group = get_group(ctx, data.st_gid);
 		content->size = ft_itoa(data.st_size);
-		content->time = time_helper(data.st_mtime);
+		switch (ctx.param.time_mode)
+		{
+			case	TM_ACCESS:
+				content->time = time_helper(data.st_atime);
+				break;
+			case	TM_MODIF:
+				content->time = time_helper(data.st_mtime);
+				break;
+			case	TM_CREATE:
+				break;
+		}
 	}
-	content->mtime = data.st_mtim;
+	switch (ctx.param.time_mode)
+	{
+		case	TM_ACCESS:
+			content->mtime = data.st_atim;
+			break;
+		case	TM_MODIF:
+			content->mtime = data.st_mtim;
+			break;
+		case	TM_CREATE:
+			break;
+	}
 	return (data.st_blocks);
 }
 

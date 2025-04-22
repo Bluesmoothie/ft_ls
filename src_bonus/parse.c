@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 11:08:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 13:40:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,27 @@ static void	parse_option(t_param *param, char *option)
 	i = 1;
 	while (option[i])
 	{
-		if (option[i] == 'l')
-			param->longformat = true;
-		else if (option[i] == 'R')
-			param->recursive = true;
-		else if (option[i] == 'a')
-			param->hidden = true;
-		else if (option[i] == 'r')
-			param->reverse = true;
-		else if (option[i] == 't')
-			param->timesort = true;
+		switch (option[i])
+		{
+			case	'l':
+				param->longformat = true;
+				break;
+			case	'R':
+				param->recursive = true;
+				break;
+			case	'a':
+				param->hidden = true;
+				break;
+			case	'r':
+				param->reverse = true;
+				break;
+			case	't':
+				param->timesort = true;
+				break;
+			case	'u':
+				param->time_mode = TM_ACCESS;
+				break;
+		}
 		i++;
 	}
 }

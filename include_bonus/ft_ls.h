@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 12:59:09 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 13:39:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct s_cache
 	char	*str[CACHE_SIZE];
 }	t_cache;
 
+enum	e_time_modes
+{
+	TM_MODIF = 0,
+	TM_ACCESS,
+	TM_CREATE
+};
+
 typedef struct s_param
 {
 	bool	hidden;
@@ -56,6 +63,7 @@ typedef struct s_param
 	bool	recursive;
 	bool	reverse;
 	bool	timesort;
+	char	time_mode;
 }	t_param;
 
 typedef struct s_context
@@ -64,8 +72,8 @@ typedef struct s_context
 	t_list	*args;
 	t_list	*files;
 	t_list	*directories;
-	t_cache	users_cache;
-	t_cache	groups_cache;
+	t_cache	*users_cache;
+	t_cache	*groups_cache;
 	int		code;
 	bool	multiple;
 }	t_context;
