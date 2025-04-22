@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:16:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:29:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	parse_option(t_param *param, char *option);
 static void	parse_argument(t_list **lst, char *argument);
 static void	complete_options(t_param *param);
+static void	set_base_param(t_param *param);
 
 /*
 **	Parse the argv, searching for options and arguments
@@ -26,8 +27,8 @@ t_context	parse_args(int argc, char **argv)
 	int			size;
 
 	ft_bzero(&ctx, sizeof(t_context));
+	set_base_param(&ctx.param);
 	i = 1;
-	ctx.param.sort = true;
 	while (i < argc)
 	{
 		if (!ft_strncmp(argv[i], "-", 1))
@@ -82,7 +83,6 @@ static void	parse_option(t_param *param, char *option)
 				param->hidden = true;
 				param->sort = false;
 				param->timesort = SM_BLOCKED;
-				param->longformat = SM_BLOCKED;
 				param->color = SM_BLOCKED;
 				param->reverse = SM_BLOCKED;
 				break;
@@ -91,6 +91,16 @@ static void	parse_option(t_param *param, char *option)
 				break;
 			case	'c':
 				param->time_mode = TM_CREATE;
+				break;
+			case	'g':
+				param->show_user = false;
+				if (param->longformat == SM_FALSE)
+					param->longformat = SM_TRUE;
+				break;
+			case	'o':
+				param->show_group = false;
+				if (param->longformat == SM_FALSE)
+					param->longformat = SM_TRUE;
 				break;
 		}
 		i++;
@@ -116,4 +126,11 @@ static void	complete_options(t_param *param)
 {
 	if (!param->longformat && param->time_mode)
 		param->timesort = true;
+}
+
+static void	set_base_param(t_param *param)
+{
+	param->sort = true;
+	param->show_group = true;
+	param->show_user = true;
 }

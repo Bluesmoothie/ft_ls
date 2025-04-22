@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:05:35 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:17:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_param
 	bool	hidden;
 	bool	recursive;
 	bool	sort;
+	bool	show_user;
+	bool	show_group;
 	char	longformat;
 	char	reverse;
 	char	timesort;

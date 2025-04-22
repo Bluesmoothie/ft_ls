@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 14:09:16 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:21:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ static int	fill_data(t_context ctx, t_lslst *content, char *path, char moremore)
 		content->mode = get_mode(data);
 		get_perms(data, content);
 		content->links = ft_itoa(data.st_nlink);
-		content->owner = get_owner(ctx, data.st_uid);
-		content->group = get_group(ctx, data.st_gid);
+		if (ctx.param.show_user)
+			content->owner = get_owner(ctx, data.st_uid);
+		if (ctx.param.show_group)
+			content->group = get_group(ctx, data.st_gid);
 		content->size = ft_itoa(data.st_size);
 		switch (ctx.param.time_mode)
 		{

@@ -18,13 +18,13 @@
 -c : like -u but with creation time\
 -f : add -aU and suppress color\
 -U : dot not sort\
+-g : -l without owner\
+-o : -l without group\
 
 ### What's missing
--g : -l without owner\
 -d : list directories ?\
 
 ### May add :
--o : -l without group\
 -A : do not list . and ..\
 -G : don't list groups in -l\
 -m : comma separated output\
