@@ -15,14 +15,14 @@
 
 ### What's working
 -u : sort by access (-ltu : sort by and show) (-lu : show and sort by name)\
+-f : do not sort (add -aU and suppress color)\
+-U : dot not sort\
 
 ### What's missing
--f : do not sort (add -aU and suppress color)\
 -g : -l without owner\
 -d : list directories ?\
 
 ### May add :
--U : needed for -f\
 -c : like -u but with creation time\
 -A : do not list . and ..\
 -G : don't list groups in -l\

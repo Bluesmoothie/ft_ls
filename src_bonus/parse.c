@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 13:40:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:03:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_context	parse_args(int argc, char **argv)
 
 	ft_bzero(&ctx, sizeof(t_context));
 	i = 1;
+	ctx.param.sort = true;
 	while (i < argc)
 	{
 		if (!ft_strncmp(argv[i], "-", 1))
@@ -55,7 +56,8 @@ static void	parse_option(t_param *param, char *option)
 		switch (option[i])
 		{
 			case	'l':
-				param->longformat = true;
+				if (param->longformat == SM_FALSE)
+					param->longformat = SM_TRUE;
 				break;
 			case	'R':
 				param->recursive = true;
@@ -64,13 +66,26 @@ static void	parse_option(t_param *param, char *option)
 				param->hidden = true;
 				break;
 			case	'r':
-				param->reverse = true;
+				if (param->reverse == SM_FALSE)
+					param->reverse = SM_TRUE;
 				break;
 			case	't':
-				param->timesort = true;
+				if (param->timesort == SM_FALSE)
+					param->timesort = SM_TRUE;
 				break;
 			case	'u':
 				param->time_mode = TM_ACCESS;
+				break;
+			case	'f':
+				param->hidden = true;
+				param->sort = false;
+				param->timesort = SM_BLOCKED;
+				param->longformat = SM_BLOCKED;
+				param->color = SM_BLOCKED;
+				param->reverse = SM_BLOCKED;
+				break;
+			case	'U':
+				param->sort = false;
 				break;
 		}
 		i++;

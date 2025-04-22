@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 13:39:53 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:05:35 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,22 @@ enum	e_time_modes
 	TM_CREATE
 };
 
+enum	e_spec_modes
+{
+	SM_FALSE,
+	SM_TRUE,
+	SM_BLOCKED
+};
+
 typedef struct s_param
 {
 	bool	hidden;
-	bool	longformat;
 	bool	recursive;
-	bool	reverse;
-	bool	timesort;
+	bool	sort;
+	char	longformat;
+	char	reverse;
+	char	timesort;
+	char	color;
 	char	time_mode;
 }	t_param;
 
@@ -100,7 +109,7 @@ void		free_cache(t_context ctx);
 t_lslst		*remove_ucontent(t_lslst *content, t_param param);
 
 //	data.c
-int			get_more_data(t_context ctx, t_lslst *content, char *path, bool moremore);
+int			get_more_data(t_context ctx, t_lslst *content, char *path, char moremore);
 
 //	debug.c
 void		print_context(t_context ctx);
