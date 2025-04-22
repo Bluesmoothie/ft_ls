@@ -6,18 +6,18 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 12:24:35 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 11:15:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static t_align_sizes	calc_max(t_lslst2 *content);
-static t_align_sizes	calc_sizes(t_lslst2 *node);
+static t_align_sizes	calc_max(t_lslst *content);
+static t_align_sizes	calc_sizes(t_lslst *node);
 static t_align_sizes	as_max(t_align_sizes as1, t_align_sizes as2);
 static char				*resize_to(char *src, size_t size, size_t src_size);
 
-void	align_data(t_lslst2 *content)
+void	align_data(t_lslst *content)
 {
 	t_align_sizes	max;
 
@@ -36,7 +36,7 @@ void	align_data(t_lslst2 *content)
 	}
 }
 
-static t_align_sizes	calc_max(t_lslst2 *content)
+static t_align_sizes	calc_max(t_lslst *content)
 {
 	t_align_sizes	max;
 	t_align_sizes	as;
@@ -51,7 +51,7 @@ static t_align_sizes	calc_max(t_lslst2 *content)
 	return (max);
 }
 
-static t_align_sizes	calc_sizes(t_lslst2 *node)
+static t_align_sizes	calc_sizes(t_lslst *node)
 {
 	node->sizes.group = ft_strlen(node->group);
 	node->sizes.links = ft_strlen(node->links);

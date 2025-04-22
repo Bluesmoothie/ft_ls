@@ -5,27 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 22:04:57 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 17:14:40 by ygille           ###   ########.fr       */
+/*   Created: 2025/04/13 21:03:46 by ygille            #+#    #+#             */
+/*   Updated: 2025/04/22 11:15:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_lslst.h"
 
 /*
-** Allocate a new node, initialize it's raw_arg to raw_arg
+** Allocate a new node, initialize it's name to name
 ** returning it's adress or NULL on error
 */
-t_lslst	*ft_lslstnew(char *raw_arg)
+t_lslst	*ft_lslstnew(char *name)
 {
 	t_lslst	*new;
 
-	new = malloc (sizeof(t_lslst));
+	new = ft_calloc (1, sizeof(t_lslst));
 	if (new != NULL)
-	{
-		new->raw_arg = raw_arg;
-		new->next = NULL;
-	}
+		new->name = name;
 	return (new);
 }
 
@@ -84,8 +81,7 @@ void	ft_lslstclear(t_lslst **lst, void (*del)(void*))
 	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;
-		del((*lst)->raw_arg);
-		del(*lst);
+		ft_lslstdelone(*lst, del);
 		*lst = tmp;
 	}
 }

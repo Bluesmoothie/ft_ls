@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:06:51 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 17:19:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 11:40:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	add_subfolder(t_context ctx, char *name, char *upper)
 {
-	t_lslst	*new;
+	t_list	*new;
 	char	*path;
 	char	*tmp;
 
@@ -24,9 +24,8 @@ void	add_subfolder(t_context ctx, char *name, char *upper)
 	tmp = mverif(ft_strjoin(upper, "/"));
 	path = mverif(ft_strjoin(tmp, name));
 	free(tmp);
-	new = ft_lslstnew(path);
+	new = ft_lstnew(path);
 	if (!new)
 		exit(-1);
-	new->mode = MLS_DIRECTORY;
-	ft_lslstadd_back(&ctx.lst, new);
+	ft_lstadd_back(&ctx.directories, new);
 }

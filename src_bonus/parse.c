@@ -6,15 +6,18 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:35:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/17 18:41:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 11:08:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 static void	parse_option(t_param *param, char *option);
-static void	parse_argument(t_lslst **lst, char *argument);
+static void	parse_argument(t_list **lst, char *argument);
 
+/*
+**	Parse the argv, searching for options and arguments
+*/
 t_context	parse_args(int argc, char **argv)
 {
 	t_context	ctx;
@@ -28,17 +31,20 @@ t_context	parse_args(int argc, char **argv)
 		if (!ft_strncmp(argv[i], "-", 1))
 			parse_option(&ctx.param, argv[i]);
 		else
-			parse_argument(&ctx.lst, argv[i]);
+			parse_argument(&ctx.args, argv[i]);
 		i++;
 	}
-	size = ft_lslstsize(ctx.lst);
+	size = ft_lstsize(ctx.args);
 	if (!size)
-		parse_argument(&ctx.lst, ".");
+		parse_argument(&ctx.args, ".");
 	else if (size > 1)
 		ctx.multiple = true;
 	return (ctx);
 }
 
+/*
+**	Set param flag arcoding to option
+*/
 static void	parse_option(t_param *param, char *option)
 {
 	int	i;
@@ -56,26 +62,21 @@ static void	parse_option(t_param *param, char *option)
 			param->reverse = true;
 		else if (option[i] == 't')
 			param->timesort = true;
-		else if (option[i] == 'u')
-			param->atimesort = true;
-		else if (option[i] == 'f')
-			param->unsorted = true;
-		else if (option[i] == 'g')
-			param->noowner = true;
-		else if (option[i] == 'd')
-			param->listdirectories = true;
 		i++;
 	}
 }
 
-static void	parse_argument(t_lslst **lst, char *argument)
+/*
+**	Create a new node with the argument
+*/
+static void	parse_argument(t_list **lst, char *argument)
 {
-	t_lslst	*new;
-	char	*name;
+	t_list	*new;
+	char	*arg;
 
-	name = mverif(ft_strdup(argument));
-	new = ft_lslstnew(name);
+	arg = mverif(ft_strdup(argument));
+	new = ft_lstnew(arg);
 	if (!new)
 		exit(-1);
-	ft_lslstadd_back(lst, new);
+	ft_lstadd_back(lst, new);
 }

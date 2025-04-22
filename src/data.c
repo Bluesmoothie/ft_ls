@@ -6,20 +6,20 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:47:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 17:23:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 11:16:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	fill_data(t_lslst2 *content, char *path, bool moremore);
+static int	fill_data(t_lslst *content, char *path, bool moremore);
 static char	get_mode(t_stat data);
-static void	get_perms(t_stat data, t_lslst2 *content);
+static void	get_perms(t_stat data, t_lslst *content);
 static char	*time_helper(time_t ftime);
 
-int	get_more_data(t_lslst2 *content, char *path, bool moremore)
+int	get_more_data(t_lslst *content, char *path, bool moremore)
 {
-	t_lslst2	*lst;
+	t_lslst	*lst;
 	char		*fpath;
 	int			size;
 
@@ -40,7 +40,7 @@ int	get_more_data(t_lslst2 *content, char *path, bool moremore)
 	return (size / 2);
 }
 
-static int	fill_data(t_lslst2 *content, char *path, bool moremore)
+static int	fill_data(t_lslst *content, char *path, bool moremore)
 {
 	t_stat	data;
 
@@ -70,7 +70,7 @@ static char	get_mode(t_stat data)
 	return (MLS2_INVALID);
 }
 
-static void	get_perms(t_stat data, t_lslst2 *content)
+static void	get_perms(t_stat data, t_lslst *content)
 {
 	ft_memset(&content->perms, '-', 9);
 	content->perms[9] = '\0';

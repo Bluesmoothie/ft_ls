@@ -6,21 +6,21 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:45:34 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 12:23:48 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/22 11:17:18 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 static bool		sort_helper(const char *s1, const char *s2, t_param param);
-static void		swaper(t_lslst2 **prev, t_lslst2 **content);
-static bool		time_sort_helper(t_lslst2 *c1, t_lslst2 *c2, t_param param);
+static void		swaper(t_lslst **prev, t_lslst **content);
+static bool		time_sort_helper(t_lslst *c1, t_lslst *c2, t_param param);
 
-t_lslst2	*time_sort(t_lslst2 *content, t_param param)
+t_lslst	*time_sort(t_lslst *content, t_param param)
 {
-	t_lslst2	*mem;
-	t_lslst2	*swap;
-	t_lslst2	*prev;
+	t_lslst	*mem;
+	t_lslst	*swap;
+	t_lslst	*prev;
 
 	mem = content;
 	prev = NULL;
@@ -44,11 +44,11 @@ t_lslst2	*time_sort(t_lslst2 *content, t_param param)
 	return (mem);
 }
 
-t_lslst2	*alpha_sort(t_lslst2 *content, t_param param)
+t_lslst	*alpha_sort(t_lslst *content, t_param param)
 {
-	t_lslst2	*mem;
-	t_lslst2	*swap;
-	t_lslst2	*prev;
+	t_lslst	*mem;
+	t_lslst	*swap;
+	t_lslst	*prev;
 
 	mem = content;
 	prev = NULL;
@@ -87,13 +87,13 @@ static bool	sort_helper(const char *s1, const char *s2, t_param param)
 	return (false);
 }
 
-static void	swaper(t_lslst2 **prev, t_lslst2 **content)
+static void	swaper(t_lslst **prev, t_lslst **content)
 {
 	*prev = *content;
 	*content = (*content)->next;
 }
 
-static bool	time_sort_helper(t_lslst2 *c1, t_lslst2 *c2, t_param param)
+static bool	time_sort_helper(t_lslst *c1, t_lslst *c2, t_param param)
 {
 	bool	result;
 
