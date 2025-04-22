@@ -7,7 +7,7 @@
 -R : recursive mode\
 -a : show hidden files\
 -r : reverse order\
--t : sort by last modification time\
+-t : sort by last modification time
 
 ### What's missing
 
@@ -19,10 +19,10 @@
 -f : add -aU and suppress color\
 -U : dot not sort\
 -g : -l without owner\
--o : -l without group\
+-o : -l without group
 
 ### What's missing
--d : list directories ?\
+-d : list directories ?
 
 ### May add :
 -A : do not list . and ..\
@@ -34,7 +34,7 @@
 -x : sort by line, not column\
 -X : sort by extension\
 -1 : one file per line\
---help --color and --version\
+--help --color and --version
 
 ## TODO
 Optimization !
