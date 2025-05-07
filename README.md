@@ -21,7 +21,8 @@
 -f : add -aU and suppress color\
 -U : dot not sort\
 -g : -l without owner\
--o : -l without group
+-o : -l without group\
+--help and --version
 
 ### What's missing
 
@@ -38,7 +39,7 @@
 -x : sort by line, not column\
 -X : sort by extension\
 -1 : one file per line\
---help --color and --version
+--color
 
 ## TODO
 
