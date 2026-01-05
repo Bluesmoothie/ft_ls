@@ -105,6 +105,7 @@ static void	parse_option(t_param *param, char *option)
 			case	'-':
 				if (i == 1)
 					special_options(&option[2]);
+				break;
 			default:
 				ft_printf("ft_ls: invalid option -- '%c'\n", option[i]);
 				ft_printf("Try 'ft_ls --help' for more information.\n");
