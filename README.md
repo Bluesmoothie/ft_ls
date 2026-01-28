@@ -1,5 +1,13 @@
 # FT_LS
 
+Just like ls
+
+## Usage
+
+```bash
+ls <options> <directories>
+```
+
 ## Mandatory
 
 ### What's working
