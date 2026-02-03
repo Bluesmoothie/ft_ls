@@ -2,6 +2,8 @@
 
 Just like ls
 
+![Screenshot](./ls.png)
+
 ## Usage
 
 ```bash
