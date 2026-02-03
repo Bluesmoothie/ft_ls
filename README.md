@@ -51,8 +51,7 @@ ls <options> <directories>
 
 ## TODO
 
-Optimization !
+Optimizations !
 
-## Notes
-
-Not exactly the same order as ls in recursive mode (-R), for the rest it's an exact copy (I think) !
+> [!NOTE]
+> Not exactly the same order as ls in recursive mode (-R), for the rest it's an exact copy (I think) !
