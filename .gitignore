@@ -1,5 +1,6 @@
 ft_ls
 .build/
+compile_commands.json
 *.o
 *.a
 *.d

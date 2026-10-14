@@ -1,107 +1,52 @@
-.PHONY			:	clean fclean re all norm FORCE bonus
+.PHONY          :   clean fclean re all clang
+.DEFAULT_GOAL	:=	all
 
-NAME			=   ft_ls
-BONUS_NAME		=	ft_ls_bonus
+NAME            =   ft_ls
 
-#			GCC
+#           GCC
+CC              =   cc
+CFLAGS          =   -Wall -Wextra -Werror -MMD -MP
+CPPFLAGS        =   -Iinclude/
+LDFLAGS         =
+LDLIBS          =
 
-CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
-CFLAGS			+=	-MMD -MP
-CFLAGS			+=	-g3
-LIBSFLAGS		=	-L$(LIBFT) -lft_ex
+#			DEBUG
+ifeq ($(DEBUG), 1)
+	CFLAGS		+=	-g3 -fsanitize=address
+endif
 
-#			COMMON
+#           COMMON
+BUILD_DIR       =   .build/
+SRC_DIR         =   src/
 
-BUILD_DIR		=	.build/
-SRC_DIR			=	src/
-INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
+#           SRC
+SRC_FILES       =   main			\
+					ls				\
+					msg				\
 
-#			SRC
+OBJ             =   $(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
+DEPS            =   $(addprefix $(BUILD_DIR), $(addsuffix .d, $(SRC_FILES)))
 
-SRC_FILES		=	main				\
-					align				\
-					cache				\
-					clean				\
-					data				\
-					error				\
-					ft_ls				\
-					parse				\
-					print				\
-					recursive			\
-					sort				\
-					time				\
-					utils				\
-					t_lslst/t_lslst		\
-					t_lslst/t_lslst2	\
+#           RULES
 
-SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
-OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
-DEPS 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .d, $(SRC_FILES)))
+all             :   $(NAME)
 
-#			LIBFT
+$(NAME)         :   $(OBJ)
+				$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LDLIBS) -o $(NAME)
 
-LIBFT			=	libft
-LIBFT_A			=	$(LIBFT)/libft_ex.a
-
-#			BONUS
-
-BONUS_BUILD_DIR	=	.build_bonus/
-BONUS_SRC_DIR	=	src_bonus/
-BONUS_INCLUDE 	=	-Iinclude_bonus/ -I$(LIBFT)/include/
-
-BONUS_SRC_FILES =	$(SRC_FILES)
-BONUS_SRC_FILES	+=	specials			\
-
-BONUS_SRC 		= 	$(addprefix $(BONUS_SRC_DIR), $(addsuffix .c, $(BONUS_SRC_FILES)))
-BONUS_OBJ 		= 	$(addprefix $(BONUS_BUILD_DIR), $(addsuffix .o, $(BONUS_SRC_FILES)))
-BONUS_DEPS 		= 	$(addprefix $(BONUS_BUILD_DIR), $(addsuffix .d, $(BONUS_SRC_FILES)))
-
-#			RULES
-
-all				:	$(NAME)
-	
-$(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
-				$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBSFLAGS) -o $(NAME)
-
-$(BUILD_DIR)	:
-				mkdir -p $(BUILD_DIR)
-				mkdir -p $(BUILD_DIR)t_lslst
-
-$(BUILD_DIR)%.o	: 	$(SRC_DIR)%.c
-				$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(BUILD_DIR)%.o :   $(SRC_DIR)%.c
+				@mkdir -p $(@D)
+				$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
 
-bonus					:	$(BONUS_NAME)
-
-$(BONUS_NAME)			:	$(BONUS_BUILD_DIR) $(BONUS_OBJ) $(LIBFT_A)
-						$(CC) $(CFLAGS) $(BONUS_INCLUDE) $(BONUS_OBJ) $(LIBSFLAGS) -o $(BONUS_NAME)
-
-$(BONUS_BUILD_DIR)		:
-						mkdir -p $(BONUS_BUILD_DIR)
-						mkdir -p $(BONUS_BUILD_DIR)t_lslst
-
-$(BONUS_BUILD_DIR)%.o	: 	$(BONUS_SRC_DIR)%.c
-						$(CC) $(CFLAGS) $(BONUS_INCLUDE) -c $< -o $@
-
--include $(BONUS_DEPS)
-
-$(LIBFT_A)		:	FORCE
-				$(MAKE) -C $(LIBFT)
-
-FORCE			:
-
-norm			:
-				norminette $(SRC_DIR) include
-				norminette $(BONUS_SRC_DIR) include_bonus
-
-clean			:
+clean           :
 				rm -rf $(BUILD_DIR)
-				rm -rf $(BONUS_BUILD_DIR)
 
-fclean			:	clean
+fclean          :   clean
 				rm -f $(NAME)
-				rm -f $(BONUS_NAME)
 
-re				:	fclean all
+re              :   fclean all
+
+clang			:
+				bear -- make -B

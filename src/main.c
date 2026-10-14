@@ -1,54 +1,57 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 18:05:09 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/22 12:56:37 by ygille           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <unistd.h>
+#include <stdlib.h>
 
 #include "ft_ls.h"
 
-int	main(int argc, char **argv)
-{
-	t_context	ctx;
+int g_error_code = 0;
 
-	ctx = parse_args(argc, argv);
-	init_cache(&ctx);
-	process_request(ctx);
-	free_cache(ctx);
-	exit(ctx.code);
-}
+int	main(int argc, char** argv) {
+	
+	t_param	param = { 0 };
+	int		opt;
 
-/*
-**	Verify arguments paths print filenames
-**	then iter directories list
-*/
-void	process_request(t_context ctx)
-{
-	t_list	*files;
-	t_list	*directories;
+	while ((opt = getopt(argc, argv, "lRart")) != -1) {
+		switch(opt) {
 
-	verif_paths(ctx.args, &ctx.files, &ctx.directories);
-	files = ctx.files;
-	directories = ctx.directories;
-	if (files)
-	{
-		while (files)
-		{
-			ft_printf("%s  ", files->content);
-			files = files->next;
+			case 'l':
+				param.long_format = true;
+				break;
+
+			case 'R':
+				param.recursive = true;
+				break;
+
+			case 'a':
+				param.show_hidden = true;
+				break;
+
+			case 'r':
+				param.reverse_order = true;
+				break;
+
+			case 't':
+				param.time_sort = true;
+				break;
+
+			case '?':
+				print_help();
+				exit(EXIT_FAILURE);
+				break;
+
+			default:
+				break;
 		}
-		ft_printf("\n\n");
 	}
-	ft_lstclear(&ctx.files, NULL);
-	while (directories)
-	{
-		ls_path(ctx, directories->content);
-		directories = directories->next;
+
+	if (argc - optind > 1)	param.multiple_entries = true;
+
+	// Using . as default if nothing is given
+	if (optind == argc)
+		do_ls(param, ".");
+	else while (optind < argc) {
+		do_ls(param, argv[optind]);
+		optind++;
 	}
-	ft_lstclear(&ctx.directories, free);
+
+	return g_error_code;
 }
