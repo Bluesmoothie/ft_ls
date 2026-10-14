@@ -19,6 +19,7 @@ int	main(int argc, char** argv) {
 
 			case 'R':
 				param.recursive = true;
+				param.multiple_entries = true;
 				break;
 
 			case 'a':
