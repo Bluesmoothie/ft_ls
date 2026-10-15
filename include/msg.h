@@ -15,3 +15,7 @@ Exit status:\n\
  1  if minor problems (e.g., cannot access subdirectory),\n\
  2  if serious trouble (e.g., cannot access command-line argument).\n\
 "
+
+const char* error_message[] = {
+	"ft_ls: cannot access '%s': No such file or directory\n",	// ERR_ARG
+};

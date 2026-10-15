@@ -48,9 +48,9 @@ int	main(int argc, char** argv) {
 
 	// Using . as default if nothing is given
 	if (optind == argc)
-		do_ls(param, ".");
+		do_ls(param, ".", false);
 	else while (optind < argc) {
-		do_ls(param, argv[optind]);
+		do_ls(param, argv[optind], false);
 		optind++;
 	}
 
