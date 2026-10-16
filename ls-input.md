@@ -81,6 +81,32 @@ l'architecture. On lit les noms, pas la position.
 
 Avec `-l`, la ligne vient de `st_mode`, `st_nlink`, `st_uid`, `st_gid`, `st_size` (ou `st_rdev` pour un périphérique), `st_mtime`, puis le nom.
 
+### Exemple : `ls -l Makefile`
+
+```text
+-rw-r--r-- 1 ygille 2024_lyon 1026 Oct 14 14:36 Makefile
+```
+
+```text
+-rw-r--r--  1  ygille  2024_lyon  1026  Oct 14 14:36  Makefile
+│└── droits  │  │       │          │     │             │
+type         │  owner   groupe     taille mtime        nom (hors stat)
+             nlink
+```
+
+| Affiché | Champ | Valeur ici | Comment `ls` l'obtient |
+|---|---|---|---|
+| `-` | `st_mode` | `0100644` | Type dans les bits hauts. `S_IFREG` (`0100000`), donc `S_ISREG` et le caractère `-`. |
+| `rw-r--r--` | `st_mode` | `0644` | Les 9 bits bas, lus par `S_IRUSR`, `S_IWUSR`, `S_IXUSR`, puis le même trio pour le groupe et les autres. Ici : `rw-` / `r--` / `r--`. `s`, `S`, `t` et `T` viendraient de `S_ISUID`, `S_ISGID` et `S_ISVTX`, absents ici. |
+| `1` | `st_nlink` | `1` | Nombre de liens physiques. |
+| `ygille` | `st_uid` | `103452` | L'uid seul est dans `stat`. Le nom vient de `getpwuid(st_uid)`. |
+| `2024_lyon` | `st_gid` | `4224` | Le gid seul est dans `stat`. Le nom vient de `getgrgid(st_gid)`. |
+| `1026` | `st_size` | `1026` | Taille en octets. Pour un périphérique (`b` ou `c`), `ls -l` affiche `major(st_rdev), minor(st_rdev)` à la place. |
+| `Oct 14 14:36` | `st_mtime` | `1791981399` | Secondes de `st_mtim.tv_sec`. `localtime` donne le 14 oct. 2026 à 14:36. Le fichier a moins de six mois, donc `ls` imprime l'heure. Au-delà, il imprime l'année. Les nanosecondes (`st_mtim.tv_nsec`) ne sortent qu'avec `--full-time`. |
+| `Makefile` | — | — | Absent de `struct stat`. C'est l'argument, ou `d_name` de `readdir`. |
+
+`st_atime` (14:36:46) et `st_ctime` (14:36:39) sont remplis, mais `ls -l` n'affiche que `st_mtime`. `st_blocks` (8 blocs de 512 octets) sert à la ligne `total`, pas à cette ligne.
+
 ## 4. Classer avec `st_mode`
 
 Les macros sont dans `<sys/stat.h>`. Chacune prend `st.st_mode`.

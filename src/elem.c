@@ -1,18 +1,49 @@
+#include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <grp.h>
+#include <sys/sysmacros.h>
+#include <time.h>
 
 #include "ft_ls.h"
 
-static char	decode_type(__mode_t mode);
-static void	decode_rights(__mode_t mode, char rights[10]);
+static char		decode_type(const __mode_t mode);
+static void		decode_rights(const __mode_t mode, char rights[10]);
+static char*	decode_owner(const __uid_t uid);
+static char*	decode_group(const __gid_t gid);
 
 t_elem	enrich_elem(const struct stat* statbuf) {
 	t_elem	elem = { 0 };
 	elem.type = decode_type(statbuf->st_mode);
 	decode_rights(statbuf->st_mode, elem.rights);
+	elem.links = statbuf->st_nlink;
+
+	elem.uid = statbuf->st_uid;
+	elem.owner = decode_owner(elem.uid);
+
+	elem.gid = statbuf->st_gid;
+	elem.group = decode_group(elem.gid);
+
+	if (elem.type == 'b' || elem.type == 'c') {
+		elem.size = major(statbuf->st_rdev);
+		elem.size = minor(statbuf->st_rdev);
+	}
+	else
+		elem.size = statbuf->st_size;
+
+	const struct tm*	tm = localtime(&statbuf->st_mtime);
+
+	elem.mtime.day = tm->tm_mday;
+	elem.mtime.month = tm->tm_mon + 1;
+	elem.mtime.year = tm->tm_year + 1900;
+	elem.mtime.hour = tm->tm_hour;
+	elem.mtime.minute = tm->tm_min;
+
 	return elem;
 }
 
-static char	decode_type(__mode_t mode) {
+static char	decode_type(const __mode_t mode) {
 	if (S_ISREG(mode))
 		return '-';
 	if (S_ISDIR(mode))
@@ -31,7 +62,7 @@ static char	decode_type(__mode_t mode) {
 	return '-';
 }
 
-static void	decode_rights(__mode_t mode, char rights[10]) {
+static void	decode_rights(const __mode_t mode, char rights[10]) {
 	rights[0] = (mode & S_IRUSR) ? 'r' : '-';
 	rights[1] = (mode & S_IWUSR) ? 'w' : '-';
 	rights[2] = (mode & S_IXUSR) ? 'x' : '-';
@@ -50,4 +81,16 @@ static void	decode_rights(__mode_t mode, char rights[10]) {
 	    rights[8] = (mode & S_IXOTH) ? 't' : 'T';
 
 	rights[9] = '\0';
+}
+
+static char*	decode_owner(const __uid_t uid) {
+	const struct passwd*	passwd = getpwuid(uid);
+
+	return strdup(passwd->pw_name);
+}	
+
+static char*	decode_group(const __gid_t gid) {
+	const struct group*	group = getgrgid(gid);
+
+	return strdup(group->gr_name);
 }
