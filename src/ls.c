@@ -20,10 +20,10 @@ void	do_ls(const t_param param, char* arg, const bool readed_by_readdir) {
 		return;
 	}
 
-	elem.name = arg;
 	if (param.long_format)
 		elem = enrich_elem(statbuf);
 
+	elem.name = arg;
 	if (!S_ISDIR(statbuf->st_mode))
 		print_file(param, elem);
 }

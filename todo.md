@@ -1,0 +1,11 @@
+# À faire
+
+Un bloc est un groupe de lignes imprimé d'une traite, avec une seule série de largeurs. Le premier bloc rassemble les arguments qui ne sont pas des répertoires : fichiers, liens, tubes, sockets et périphériques. Chaque répertoire ouvert ensuite est un bloc à part. Avec `-R`, chaque sous-répertoire est un nouveau bloc. Les colonnes se mesurent sur les noms de ce bloc avant de l'imprimer. Un passage suffit : garder ces noms avec leur `stat`, calculer les largeurs de `st_nlink`, du propriétaire, du groupe et de la taille, puis afficher. `total` se calcule pendant ce passage, sur ces mêmes noms.
+
+Pour un périphérique bloc (`b`) ou caractère (`c`), `ls -l` affiche `major, minor` à la place de la taille. `major(st_rdev)` va dans `size`, `minor(st_rdev)` dans `size2`. L'affichage imprime les deux sous la forme `1, 3` : une virgule puis une espace. Cette colonne est commune au bloc. Le majeur et le mineur sont alignés à droite sur leur plus grande largeur, et l'espace restant est ajouté devant le majeur pour que les virgules tombent sur la même colonne. Un lien, un tube ou une socket garde `st_size` seul. Pour un lien, cette taille est la longueur du chemin cible. La cible est ajoutée après le nom, sous la forme ` -> cible`.
+
+Si `getpwuid` ou `getgrgid` ne renvoie pas de nom, ou si ce nom est vide, la colonne propriétaire ou groupe affiche l'identifiant numérique (`st_uid`, `st_gid`). Seul le champ manquant devient numérique. Un nom est aligné à gauche, un identifiant à droite, dans la largeur de la chaîne réellement affichée, chiffres compris. Ces fonctions renvoient une zone statique : le nom affiché en est une copie.
+
+La date vient de `st_mtime`, formatée selon la locale. Un fichier récent donne `Oct  5 09:05` : mois abrégé, jour sur deux colonnes, heure et minute sur deux chiffres. Récent veut dire après maintenant moins 15 778 476 secondes (`31556952 / 2`), et avant maintenant. Une date plus ancienne, ou une date future, affiche l'année avec deux espaces : `Jan  1  2020`.
+
+`total` n'apparaît que devant le contenu d'un répertoire. C'est la somme des `st_blocks` des noms affichés. `st_blocks` compte des blocs de 512 octets, et GNU `ls` divise cette somme par deux par défaut. Avec `POSIXLY_CORRECT`, la somme reste en blocs de 512. Un fichier passé seul en argument n'a pas de ligne `total`.
