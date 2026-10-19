@@ -23,6 +23,7 @@ SRC_DIR         =   src/
 SRC_FILES       =   main			\
 					array			\
 					block			\
+					dir				\
 					elem			\
 					list			\
 					ls				\

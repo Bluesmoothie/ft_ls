@@ -8,19 +8,11 @@
 #include "ft_ls.h"
 #include "list.h"
 
-void	do_ls(const t_param param, char* arg, const bool readed_by_readdir) {
-	const struct stat*	statbuf = check_arg(param, arg, readed_by_readdir);
-	t_elem				elem = { 0 };
-	if (!statbuf) {
-		if (!readed_by_readdir)
-			print_err(ERR_ARG, arg);
-		return;
-	}
-
-	if (param.long_format)
-		elem = enrich_elem(statbuf);
-
-	elem.name = arg;
+void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
+	t_block	block = { 0 };
+	block.name = dir;
+	block.elem = enum_dir(dir);
+	(void)param;(void)readed_by_readdir;
 }
 
 void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {

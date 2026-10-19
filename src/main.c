@@ -47,9 +47,9 @@ int	main(int argc, char** argv) {
 	if (argc - optind > 1)	param.multiple_entries = true;
 
 	// Using . as default if nothing is given
-	// if (optind == argc)
-	// 	do_ls(param, ".", false);
-	// else
+	if (optind == argc)
+		do_ls(param, ".", false);
+	else
 		treat_args_and_do_ls(param, optind, argc, argv);
 
 	return g_error_code;

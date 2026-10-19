@@ -59,7 +59,7 @@ typedef enum	e_error_code {
 extern int	g_error_code;
 
 //	ls.c
-void			do_ls(const t_param param, char* arg, const bool readed_by_readdir);
+void			do_ls(const t_param param, char* dir, const bool readed_by_readdir);
 void			treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv);
 struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir);
 
@@ -69,6 +69,9 @@ void			free_array(t_elem** array);
 
 //	block.c
 t_block			enrich_block(const t_param param, t_block block, const bool readed_by_readdir);
+
+//	dir.c
+t_elem**		enum_dir(const char* dir);
 
 //	elem.c
 t_elem			enrich_elem(const struct stat* statbuf);
