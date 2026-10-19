@@ -1,5 +1,4 @@
 #include <stdbool.h>
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -8,8 +7,6 @@
 
 #include "ft_ls.h"
 #include "list.h"
-
-static struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir);
 
 void	do_ls(const t_param param, char* arg, const bool readed_by_readdir) {
 	const struct stat*	statbuf = check_arg(param, arg, readed_by_readdir);
@@ -24,8 +21,6 @@ void	do_ls(const t_param param, char* arg, const bool readed_by_readdir) {
 		elem = enrich_elem(statbuf);
 
 	elem.name = arg;
-	if (!S_ISDIR(statbuf->st_mode))
-		print_file(param, elem);
 }
 
 void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {
@@ -59,31 +54,30 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 	}
 
 	t_elem**	file_array = list_to_array(file_lst);
-	t_elem**	folder_array = list_to_array(folder_lst);
+	// t_elem**	folder_array = list_to_array(folder_lst);	// TODO
 
 	list_clear_no_free_elem(file_lst);
 	list_clear_no_free_elem(folder_lst);
 
-	// TODO sort
-
 	if (file_array) {
-		for (int i = 0; file_array[i]; i++)
-			do_ls(param, file_array[i]->name, false);
-		fflush(stdout);
-		write(STDOUT_FILENO, "\n", 1);
-		free_array(file_array);
+		t_block	block = { 0 };
+		block.elem = file_array;
+		if (param.long_format)
+			block = enrich_block(param, block, false);
+		print_block(param, block);
 	}
 
-	if (folder_array) {
-		for (int i = 0; folder_array[i]; i++)
-			do_ls(param, folder_array[i]->name, false);
-		fflush(stdout);
-		write(STDOUT_FILENO, "\n", 1);
-		free_array(folder_array);
-	}
+	// TODO
+	// if (folder_array) {
+	// 	for (int i = 0; folder_array[i]; i++)
+	// 		do_ls(param, folder_array[i]->name, false);
+	// 	fflush(stdout);
+	// 	write(STDOUT_FILENO, "\n", 1);
+	// 	free_array(folder_array);
+	// }
 }
 
-static struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir) {
+struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir) {
 	int				ret = 0;
 	struct stat*	statbuf = malloc(sizeof(struct stat));
 	if (!statbuf)

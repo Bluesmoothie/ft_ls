@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 #include "list.h"
 
@@ -36,6 +37,21 @@ typedef struct	s_elem {
 	t_time		mtime;
 }	t_elem;
 
+typedef struct s_align {
+	unsigned int	link;
+	unsigned int	owner;
+	unsigned int	group;
+	unsigned int	size;
+} t_align;
+
+typedef struct s_block {
+	char*		name;
+	t_elem**	elem;
+	__blkcnt_t	total;
+	bool		print_total;
+	t_align		align;
+} t_block;
+
 typedef enum	e_error_code {
 	ERR_ARG
 }	t_error_code;
@@ -43,20 +59,24 @@ typedef enum	e_error_code {
 extern int	g_error_code;
 
 //	ls.c
-void		do_ls(const t_param param, char* arg, const bool readed_by_readdir);
-void		treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv);
+void			do_ls(const t_param param, char* arg, const bool readed_by_readdir);
+void			treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv);
+struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir);
 
 //	array.c
-t_elem**	list_to_array(t_list* list);
-void		free_array(t_elem** array);
+t_elem**		list_to_array(t_list* list);
+void			free_array(t_elem** array);
 
-// elem.c
-t_elem		enrich_elem(const struct stat* statbuf);
-char		decode_type(const __mode_t mode);
+//	block.c
+t_block			enrich_block(const t_param param, t_block block, const bool readed_by_readdir);
+
+//	elem.c
+t_elem			enrich_elem(const struct stat* statbuf);
+char			decode_type(const __mode_t mode);
 
 //	msg.c
-void		print_help(void);
-void		print_err(const int err_id, const char* arg);
+void			print_help(void);
+void			print_err(const int err_id, const char* arg);
 
 //	print.c
-void		print_file(const t_param param, const t_elem elem);
+void			print_block(const t_param param, const t_block block);
