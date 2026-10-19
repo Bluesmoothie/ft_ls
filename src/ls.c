@@ -5,6 +5,7 @@
 #include <errno.h>
 
 #include "ft_ls.h"
+#include "list.h"
 
 static struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir);
 
@@ -23,6 +24,39 @@ void	do_ls(const t_param param, char* arg, const bool readed_by_readdir) {
 
 	if (!S_ISDIR(statbuf->st_mode))
 		print_file(param, statbuf, elem);
+}
+
+void	order_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {
+	t_list*	file_lst = NULL;
+	t_list*	folder_lst = NULL;
+
+	while (optind < argc) {
+		const struct stat*	statbuf = check_arg(param, argv[optind], false);
+		if (!statbuf) {
+			print_err(ERR_ARG, argv[optind]);
+			continue;
+		}
+
+		t_elem*	elem = malloc(sizeof(t_elem));
+		if (!elem)
+			exit(EXIT_FAILURE);
+
+		elem->name = argv[optind];
+		elem->type = decode_type(statbuf->st_mode);
+
+		t_list*	node = list_new_node(elem);
+		if (!node)
+			exit(EXIT_FAILURE);
+
+		if (elem->type == 'd')
+			list_insert(folder_lst, node);
+		else
+		 	list_insert(file_lst, node);
+
+		optind++;
+	}
+
+	// sort list, do ls on file then folder and clear lst;
 }
 
 static struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir) {

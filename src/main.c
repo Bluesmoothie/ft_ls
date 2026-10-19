@@ -49,10 +49,8 @@ int	main(int argc, char** argv) {
 	// Using . as default if nothing is given
 	if (optind == argc)
 		do_ls(param, ".", false);
-	else while (optind < argc) {
-		do_ls(param, argv[optind], false);
-		optind++;
-	}
+	else
+		order_args_and_do_ls(param, optind, argc, argv);
 
 	return g_error_code;
 }

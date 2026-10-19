@@ -8,7 +8,6 @@
 
 #include "ft_ls.h"
 
-static char		decode_type(const __mode_t mode);
 static void		decode_rights(const __mode_t mode, char rights[10]);
 static char*	decode_owner(const __uid_t uid);
 static char*	decode_group(const __gid_t gid);
@@ -43,7 +42,7 @@ t_elem	enrich_elem(const struct stat* statbuf) {
 	return elem;
 }
 
-static char	decode_type(const __mode_t mode) {
+char	decode_type(const __mode_t mode) {
 	if (S_ISREG(mode))
 		return '-';
 	if (S_ISDIR(mode))
