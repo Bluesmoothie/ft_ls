@@ -34,9 +34,10 @@ static struct stat*	check_arg(const t_param param, const char* arg, const bool r
 	if (readed_by_readdir || param.long_format) {
 		if (lstat(arg, statbuf)) {
 			free(statbuf);
-			if (readed_by_readdir)
+			if (readed_by_readdir) {
 				if (!g_error_code)
 					g_error_code = 1;
+			}
 			else
 				g_error_code = 2;
 			return NULL;

@@ -21,8 +21,11 @@ SRC_DIR         =   src/
 
 #           SRC
 SRC_FILES       =   main			\
+					elem			\
+					list			\
 					ls				\
 					msg				\
+					print			\
 
 OBJ             =   $(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
 DEPS            =   $(addprefix $(BUILD_DIR), $(addsuffix .d, $(SRC_FILES)))

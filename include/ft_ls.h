@@ -49,3 +49,6 @@ t_elem	enrich_elem(const struct stat* statbuf);
 //	msg.c
 void	print_help(void);
 void	print_err(const int err_id, const char* arg);
+
+//	print.c
+void	print_file(const t_param param, const struct stat* statbuf, const t_elem elem);
