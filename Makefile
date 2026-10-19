@@ -1,4 +1,4 @@
-.PHONY          :   clean fclean re all clang
+.PHONY          :   clean fclean re all clang debug
 .DEFAULT_GOAL	:=	all
 
 NAME            =   ft_ls
@@ -21,6 +21,7 @@ SRC_DIR         =   src/
 
 #           SRC
 SRC_FILES       =   main			\
+					array			\
 					elem			\
 					list			\
 					ls				\
@@ -50,6 +51,9 @@ fclean          :   clean
 				rm -f $(NAME)
 
 re              :   fclean all
+
+debug           :
+				$(MAKE) DEBUG=1 re
 
 clang			:
 				bear -- make -B

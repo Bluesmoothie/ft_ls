@@ -1,3 +1,5 @@
+#include <stdbool.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -23,10 +25,10 @@ void	do_ls(const t_param param, char* arg, const bool readed_by_readdir) {
 		elem = enrich_elem(statbuf);
 
 	if (!S_ISDIR(statbuf->st_mode))
-		print_file(param, statbuf, elem);
+		print_file(param, elem);
 }
 
-void	order_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {
+void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {
 	t_list*	file_lst = NULL;
 	t_list*	folder_lst = NULL;
 
@@ -49,14 +51,36 @@ void	order_args_and_do_ls(const t_param param, int optind, const int argc, char*
 			exit(EXIT_FAILURE);
 
 		if (elem->type == 'd')
-			list_insert(folder_lst, node);
+			list_push_back(&folder_lst, node);
 		else
-		 	list_insert(file_lst, node);
+		 	list_push_back(&file_lst, node);
 
 		optind++;
 	}
 
-	// sort list, do ls on file then folder and clear lst;
+	t_elem**	file_array = list_to_array(file_lst);
+	t_elem**	folder_array = list_to_array(folder_lst);
+
+	list_clear_no_free_elem(file_lst);
+	list_clear_no_free_elem(folder_lst);
+
+	// TODO sort
+
+	if (file_array) {
+		for (int i = 0; file_array[i]; i++)
+			do_ls(param, file_array[i]->name, false);
+		fflush(stdout);
+		write(STDOUT_FILENO, "\n", 1);
+		free_array(file_array);
+	}
+
+	if (folder_array) {
+		for (int i = 0; folder_array[i]; i++)
+			do_ls(param, folder_array[i]->name, false);
+		fflush(stdout);
+		write(STDOUT_FILENO, "\n", 1);
+		free_array(folder_array);
+	}
 }
 
 static struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir) {
@@ -83,10 +107,8 @@ static struct stat*	check_arg(const t_param param, const char* arg, const bool r
 	if (!ret && S_ISDIR(statbuf->st_mode))
 		return statbuf;
 	
-	if (!ret || (ret && errno == ENOENT)) {
-		free(statbuf);
+	if (!ret || (ret && errno == ENOENT))
 		ret = lstat(arg, statbuf);
-	}
 
 	if (ret) {
 		free(statbuf);

@@ -50,7 +50,7 @@ int	main(int argc, char** argv) {
 	if (optind == argc)
 		do_ls(param, ".", false);
 	else
-		order_args_and_do_ls(param, optind, argc, argv);
+		treat_args_and_do_ls(param, optind, argc, argv);
 
 	return g_error_code;
 }

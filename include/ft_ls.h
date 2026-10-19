@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 
+#include "list.h"
+
 typedef struct	s_param {
 	bool	long_format;
 	bool	recursive;
@@ -41,16 +43,20 @@ typedef enum	e_error_code {
 extern int	g_error_code;
 
 //	ls.c
-void	do_ls(const t_param param, char* arg, const bool readed_by_readdir);
-void	order_args_and_do_ls(const t_param param, int optind, const int argc, char** argv);
+void		do_ls(const t_param param, char* arg, const bool readed_by_readdir);
+void		treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv);
+
+//	array.c
+t_elem**	list_to_array(t_list* list);
+void		free_array(t_elem** array);
 
 // elem.c
-t_elem	enrich_elem(const struct stat* statbuf);
-char	decode_type(const __mode_t mode);
+t_elem		enrich_elem(const struct stat* statbuf);
+char		decode_type(const __mode_t mode);
 
 //	msg.c
-void	print_help(void);
-void	print_err(const int err_id, const char* arg);
+void		print_help(void);
+void		print_err(const int err_id, const char* arg);
 
 //	print.c
-void	print_file(const t_param param, const struct stat* statbuf, const t_elem elem);
+void		print_file(const t_param param, const t_elem elem);
