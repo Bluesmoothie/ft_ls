@@ -20,6 +20,8 @@ t_elem**	enum_dir(const char* dir) {
 			exit(EXIT_FAILURE);
 
 		elem->name = dirent->d_name;
+		if (dirent->d_type == DT_DIR)	//	permit recursivity to work without long format option
+			elem->type = 'd';
 		list_push_back(&dir_lst, node);
 		dirent = readdir(dir_p);
 	}

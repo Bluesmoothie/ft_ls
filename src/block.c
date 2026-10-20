@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "ft_ls.h"
 
 static t_align	align_block(t_elem** elem);
@@ -17,7 +19,7 @@ t_block	enrich_block(const t_param param, t_block block, const bool readed_by_re
 
 void	recurse_block(const t_param param, const t_block block) {
 	for (unsigned int i = 0; block.elem[i]; i++) {
-		if (block.elem[i]->type == 'd')
+		if (block.elem[i]->type == 'd' && strncmp(block.elem[i]->name, ".", 1))
 			do_ls(param, block.elem[i]->name, true);
 	}
 }
