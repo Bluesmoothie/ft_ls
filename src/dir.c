@@ -5,7 +5,7 @@
 #include "ft_ls.h"
 #include "list.h"
 
-t_elem**	enum_dir(const char* dir) {
+t_elem**	enum_dir(const char* dir, size_t* nelem) {
 	DIR*	dir_p = opendir(dir);
 	if (!dir_p)
 		exit(EXIT_FAILURE);
@@ -26,7 +26,7 @@ t_elem**	enum_dir(const char* dir) {
 		dirent = readdir(dir_p);
 	}
 
-	t_elem**	array = list_to_array(dir_lst);
+	t_elem**	array = list_to_array(dir_lst, nelem);
 	if (!array)
 		exit(EXIT_FAILURE);
 	list_clear_no_free_elem(dir_lst);

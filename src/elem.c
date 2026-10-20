@@ -12,34 +12,38 @@ static void		decode_rights(const __mode_t mode, char rights[10]);
 static char*	decode_owner(const __uid_t uid);
 static char*	decode_group(const __gid_t gid);
 
-t_elem	enrich_elem(const struct stat* statbuf) {
-	t_elem	elem = { 0 };
-	elem.type = decode_type(statbuf->st_mode);
-	decode_rights(statbuf->st_mode, elem.rights);
-	elem.links = statbuf->st_nlink;
-
-	elem.uid = statbuf->st_uid;
-	elem.owner = decode_owner(elem.uid);
-
-	elem.gid = statbuf->st_gid;
-	elem.group = decode_group(elem.gid);
-
-	if (elem.type == 'b' || elem.type == 'c') {
-		elem.size = major(statbuf->st_rdev);
-		elem.size = minor(statbuf->st_rdev);
-	}
-	else
-		elem.size = statbuf->st_size;
-
+void	enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf) {
 	const struct tm*	tm = localtime(&statbuf->st_mtime);
 
-	elem.mtime.day = tm->tm_mday;
-	elem.mtime.month = tm->tm_mon + 1;
-	elem.mtime.year = tm->tm_year + 1900;
-	elem.mtime.hour = tm->tm_hour;
-	elem.mtime.minute = tm->tm_min;
+	if (param.long_format) {
+		elem->type = decode_type(statbuf->st_mode);
+		decode_rights(statbuf->st_mode, elem->rights);
+		elem->links = statbuf->st_nlink;
 
-	return elem;
+		elem->uid = statbuf->st_uid;
+		elem->owner = decode_owner(elem->uid);
+
+		elem->gid = statbuf->st_gid;
+		elem->group = decode_group(elem->gid);
+
+		if (elem->type == 'b' || elem->type == 'c') {
+			elem->size = major(statbuf->st_rdev);
+			elem->size = minor(statbuf->st_rdev);
+		}
+		else
+			elem->size = statbuf->st_size;
+
+		elem->mtime.day = tm->tm_mday;
+		elem->mtime.month = tm->tm_mon + 1;
+		elem->mtime.year = tm->tm_year + 1900;
+		elem->mtime.hour = tm->tm_hour;
+		elem->mtime.minute = tm->tm_min;
+	}
+
+	if (param.time_sort) {
+		elem->mtime.second = statbuf->st_mtim.tv_sec;
+		elem->mtime.nanosecond = statbuf->st_mtim.tv_nsec;
+	}
 }
 
 char	decode_type(const __mode_t mode) {

@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stddef.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -11,10 +12,11 @@
 void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
 	t_block	block = { 0 };
 	block.name = dir;
-	block.elem = enum_dir(dir);
-	if (param.long_format)
+	block.elem = enum_dir(dir, &block.nelem);
+	if (param.long_format || param.time_sort)
 		block = enrich_block(param, block, readed_by_readdir);
 
+	sort_block(param, block);
 	print_block(param, block);
 
 	if (param.recursive)
@@ -53,8 +55,9 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 		optind++;
 	}
 
-	t_elem**	file_array = list_to_array(file_lst);
-	t_elem**	folder_array = list_to_array(folder_lst);
+	size_t		file_array_size = 0;
+	t_elem**	file_array = list_to_array(file_lst, &file_array_size);
+	t_elem**	folder_array = list_to_array(folder_lst, NULL);
 
 	list_clear_no_free_elem(file_lst);
 	list_clear_no_free_elem(folder_lst);
@@ -62,8 +65,10 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 	if (file_array) {
 		t_block	block = { 0 };
 		block.elem = file_array;
-		if (param.long_format)
+		block.nelem = file_array_size;
+		if (param.long_format || param.time_sort)
 			block = enrich_block(param, block, false);
+		sort_block(param, block);
 		print_block(param, block);
 	}
 

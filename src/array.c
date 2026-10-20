@@ -3,7 +3,7 @@
 #include "ft_ls.h"
 #include "list.h"
 
-t_elem**	list_to_array(t_list* list) {
+t_elem**	list_to_array(t_list* list, size_t* size) {
 	const unsigned int	c = list_count(list);
 	if (c < 1)
 		return NULL;
@@ -18,6 +18,8 @@ t_elem**	list_to_array(t_list* list) {
 	}	while (list);
 	array[n] = NULL;
 
+	if (size)
+		*size = c;
 	return array;
 }
 
