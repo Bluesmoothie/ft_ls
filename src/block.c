@@ -15,6 +15,13 @@ t_block	enrich_block(const t_param param, t_block block, const bool readed_by_re
 	return block;
 }
 
+void	recurse_block(const t_param param, const t_block block) {
+	for (unsigned int i = 0; block.elem[i]; i++) {
+		if (block.elem[i]->type == 'd')
+			do_ls(param, block.elem[i]->name, true);
+	}
+}
+
 //	TODO
 static t_align	align_block(t_elem** elem) {
 	(void) elem; return (t_align){ 0 };

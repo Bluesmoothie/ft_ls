@@ -69,6 +69,7 @@ void			free_array(t_elem** array);
 
 //	block.c
 t_block			enrich_block(const t_param param, t_block block, const bool readed_by_readdir);
+void			recurse_block(const t_param param, const t_block block);
 
 //	dir.c
 t_elem**		enum_dir(const char* dir);

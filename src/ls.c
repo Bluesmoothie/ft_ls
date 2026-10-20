@@ -12,7 +12,15 @@ void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
 	t_block	block = { 0 };
 	block.name = dir;
 	block.elem = enum_dir(dir);
-	(void)param;(void)readed_by_readdir;
+	if (param.long_format)
+		block = enrich_block(param, block, readed_by_readdir);
+
+	print_block(param, block);
+
+	if (param.recursive)
+		recurse_block(param, block);
+
+	free_array(block.elem);
 }
 
 void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {
@@ -46,7 +54,7 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 	}
 
 	t_elem**	file_array = list_to_array(file_lst);
-	// t_elem**	folder_array = list_to_array(folder_lst);	// TODO
+	t_elem**	folder_array = list_to_array(folder_lst);
 
 	list_clear_no_free_elem(file_lst);
 	list_clear_no_free_elem(folder_lst);
@@ -59,14 +67,11 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 		print_block(param, block);
 	}
 
-	// TODO
-	// if (folder_array) {
-	// 	for (int i = 0; folder_array[i]; i++)
-	// 		do_ls(param, folder_array[i]->name, false);
-	// 	fflush(stdout);
-	// 	write(STDOUT_FILENO, "\n", 1);
-	// 	free_array(folder_array);
-	// }
+	if (folder_array) {
+		for (int i = 0; folder_array[i]; i++)
+			do_ls(param, folder_array[i]->name, false);
+		free_array(folder_array);
+	}
 }
 
 struct stat*	check_arg(const t_param param, const char* arg, const bool readed_by_readdir) {
