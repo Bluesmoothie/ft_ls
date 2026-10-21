@@ -36,6 +36,7 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 		struct stat*	statbuf = check_arg(param, argv[optind], false);
 		if (!statbuf) {
 			print_err(ERR_ARG, argv[optind]);
+			optind++;
 			continue;
 		}
 
