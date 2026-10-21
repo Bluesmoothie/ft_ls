@@ -22,7 +22,10 @@ void	print_block(const t_param param, const t_block block) {
 			continue;
 		if (!param.long_format)
 			printf("%s  ", block.elem[i]->name);
-		else if (six_month_ago < block.elem[i]->mtime.second && block.elem[i]->mtime.second < now.tv_sec)
+		else if ((six_month_ago < block.elem[i]->mtime.second
+				|| (six_month_ago == block.elem[i]->mtime.second && now.tv_nsec < block.elem[i]->mtime.nanosecond))
+				&& (block.elem[i]->mtime.second < now.tv_sec
+				|| (block.elem[i]->mtime.second == now.tv_sec && block.elem[i]->mtime.nanosecond < now.tv_nsec)))
 			printf("%c%s %*lu %-*s %-*s %*lu %-*s %2d %02d:%02d %s\n", 
 				block.elem[i]->type,
 				block.elem[i]->rights,
