@@ -23,7 +23,8 @@ void	enrich_block(const t_param param, t_block* block, const bool readed_by_read
 	if (!g_posixly_correct)
 		block->total = block->total / 2;
 
-	block->align = align_block(block->elem);
+	if (param.long_format)
+		block->align = align_block(block->elem);
 }
 
 void	recurse_block(const t_param param, const t_block block) {

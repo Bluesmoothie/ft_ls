@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <unistd.h>
 
 #include "ft_ls.h"
 #include "list.h"
@@ -17,8 +18,7 @@ t_elem**	enum_dir(const char* dir, size_t* nelem, const bool readed_by_readdir) 
 		} else
 			g_error_code = 2;
 		print_err(ERR_ACC, dir);
-		strerror(errno);
-		printf("\n");
+		dprintf(STDERR_FILENO, "%s\n", strerror(errno));
 		return NULL;
 	}
 	
