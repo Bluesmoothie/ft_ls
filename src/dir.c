@@ -27,7 +27,8 @@ t_elem**	enum_dir(const char* dir, size_t* nelem) {
 		if (!elem->path)
 			exit(EXIT_FAILURE);
 		elem->path = strcpy(elem->path, dir);
-		elem->path = strcat(elem->path, "/");
+		if (elem->path[0] && elem->path[strlen(elem->path) - 1] != '/')
+			elem->path = strcat(elem->path, "/");
 		elem->path = strcat(elem->path, elem->name);
 		if (dirent->d_type == DT_DIR)	//	permit recursivity to work without long format option
 			elem->type = 'd';
