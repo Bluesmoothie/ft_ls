@@ -7,18 +7,27 @@
 
 void	print_block(const t_param param, const t_block block) {
 	// TODO use t_align data
+	static bool		started = false;
+	bool			visible = false;
 	struct timespec	now;
 	clock_gettime(CLOCK_REALTIME, &now);
 	const __time_t	six_month_ago = now.tv_sec - 15778476;
 
-	if (block.elem[0] && block.name && (param.multiple_entries || param.recursive))
+	if (block.elem[0] && block.name && (param.multiple_entries || param.recursive)) {
+		if (started)
+			printf("\n");
 		printf("%s:\n", block.name);
-	if (block.elem[0] && param.long_format)
+		started = true;
+	}
+	if (block.elem[0] && param.long_format) {
 		printf("total %lu\n", block.total);
+		started = true;
+	}
 
 	for (unsigned int i = 0; block.elem[i]; i++) {
 		if (!param.show_hidden && !strncmp(block.elem[i]->name, ".", 1))
 			continue;
+		visible = true;
 		if (!param.long_format)
 			printf("%s  ", block.elem[i]->name);
 		else if ((six_month_ago < block.elem[i]->mtime.second
@@ -50,5 +59,8 @@ void	print_block(const t_param param, const t_block block) {
 				block.elem[i]->mtime.year, 
 				block.elem[i]->name);
 	}
-	printf("\n");
+	if (!param.long_format && visible) {
+		printf("\n");
+		started = true;
+	}
 }
