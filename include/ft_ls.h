@@ -43,11 +43,11 @@ typedef struct	s_elem {
 }	t_elem;
 
 typedef struct s_align {
-	unsigned int	link;
-	unsigned int	owner;
-	unsigned int	group;
-	unsigned int	size;
-	unsigned int	month;
+	int	link;
+	int	owner;
+	int	group;
+	int	size;
+	int	month;
 } t_align;
 
 typedef struct s_block {

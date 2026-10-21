@@ -23,9 +23,30 @@ void	print_block(const t_param param, const t_block block) {
 		if (!param.long_format)
 			printf("%s  ", block.elem[i]->name);
 		else if (six_month_ago < block.elem[i]->mtime.second && block.elem[i]->mtime.second < now.tv_sec)
-			printf("%c%s %lu %s %s %lu %s %d %d:%d %s\n", block.elem[i]->type, block.elem[i]->rights, block.elem[i]->links, block.elem[i]->owner, block.elem[i]->group, block.elem[i]->size, block.elem[i]->mtime.month_str, block.elem[i]->mtime.day, block.elem[i]->mtime.hour, block.elem[i]->mtime.minute, block.elem[i]->name);
+			printf("%c%s %*lu %-*s %-*s %*lu %-*s %2d %02d:%02d %s\n", 
+				block.elem[i]->type,
+				block.elem[i]->rights,
+				block.align.link, block.elem[i]->links,
+				block.align.owner, block.elem[i]->owner,
+				block.align.group, block.elem[i]->group,
+				block.align.size, block.elem[i]->size,
+				block.align.month, block.elem[i]->mtime.month_str,
+				block.elem[i]->mtime.day,
+				block.elem[i]->mtime.hour,
+				block.elem[i]->mtime.minute,
+				block.elem[i]->name);
 		else 
-			printf("%c%s %lu %s %s %lu %s %d %d  %s\n", block.elem[i]->type, block.elem[i]->rights, block.elem[i]->links, block.elem[i]->owner, block.elem[i]->group, block.elem[i]->size, block.elem[i]->mtime.month_str, block.elem[i]->mtime.day, block.elem[i]->mtime.year, block.elem[i]->name);
+			printf("%c%s %*lu %-*s %-*s %*lu %-*s %2d  %d %s\n", 
+				block.elem[i]->type,
+				block.elem[i]->rights,
+				block.align.link, block.elem[i]->links,
+				block.align.owner, block.elem[i]->owner,
+				block.align.group, block.elem[i]->group,
+				block.align.size, block.elem[i]->size, 
+				block.align.month, block.elem[i]->mtime.month_str, 
+				block.elem[i]->mtime.day, 
+				block.elem[i]->mtime.year, 
+				block.elem[i]->name);
 	}
 	printf("\n");
 }

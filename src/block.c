@@ -1,5 +1,5 @@
 #define _GNU_SOURCE
-
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -7,6 +7,7 @@
 
 static int		compare(const void* a, const void* b, void* param);
 static t_align	align_block(t_elem** elem);
+static int	max(const int a, const int b);
 
 void	enrich_block(const t_param param, t_block* block, const bool readed_by_readdir) {
 	for (unsigned int i = 0; block->elem[i]; i++) {
@@ -50,7 +51,20 @@ static int	compare(const void* a, const void* b, void* param) {
 	return strcoll((*(const t_elem**)a)->name, (*(const t_elem**)b)->name) * c;
 }
 
-//	TODO
 static t_align	align_block(t_elem** elem) {
-	(void) elem; return (t_align){ 0 };
+	t_align	align = { 0 };
+	
+	for (unsigned int i = 0; elem[i]; i++) {
+		align.link = max(snprintf(NULL, 0, "%lu", elem[i]->links), align.link);
+		align.owner = max(snprintf(NULL, 0, "%s", elem[i]->owner), align.owner);
+		align.group = max(snprintf(NULL, 0, "%s", elem[i]->group), align.group);
+		align.size = max(snprintf(NULL, 0, "%lu", elem[i]->size), align.size);
+		align.month = max(snprintf(NULL, 0, "%s", elem[i]->mtime.month_str), align.month);
+	}
+
+	return align;
+}
+
+static int	max(const int a, const int b) {
+	return a > b ? a : b;
 }
