@@ -33,7 +33,7 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 	t_list*	folder_lst = NULL;
 
 	while (optind < argc) {
-		const struct stat*	statbuf = check_arg(param, argv[optind], false);
+		struct stat*	statbuf = check_arg(param, argv[optind], false);
 		if (!statbuf) {
 			print_err(ERR_ARG, argv[optind]);
 			continue;
@@ -59,6 +59,7 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 		 	list_push_back(&file_lst, node);
 
 		optind++;
+		free(statbuf);
 	}
 
 	size_t		file_array_size = 0;

@@ -20,7 +20,9 @@ t_elem**	enum_dir(const char* dir, size_t* nelem) {
 		if (!elem || !node)
 			exit(EXIT_FAILURE);
 
-		elem->name = dirent->d_name;
+		elem->name = strdup(dirent->d_name);
+		if (!elem->name)
+			exit(EXIT_FAILURE);
 		elem->path = malloc(strlen(elem->name) + strlen(dir) + 2);	//	+2 for \0 and dir/name
 		if (!elem->path)
 			exit(EXIT_FAILURE);
@@ -32,6 +34,7 @@ t_elem**	enum_dir(const char* dir, size_t* nelem) {
 		list_push_back(&dir_lst, node);
 		dirent = readdir(dir_p);
 	}
+	closedir(dir_p);
 
 	t_elem**	array = list_to_array(dir_lst, nelem);
 	if (!array)

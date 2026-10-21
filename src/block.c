@@ -11,12 +11,13 @@ static int	max(const int a, const int b);
 
 void	enrich_block(const t_param param, t_block* block, const bool readed_by_readdir) {
 	for (unsigned int i = 0; block->elem[i]; i++) {
-		const struct stat*	statbuf = check_arg(param, block->elem[i]->path, readed_by_readdir);
+		struct stat*	statbuf = check_arg(param, block->elem[i]->path, readed_by_readdir);
 		if (!statbuf)
 			continue;
 		const __blkcnt_t	size = enrich_elem(param, (block->elem[i]), statbuf);
 		if (param.show_hidden || strncmp(block->elem[i]->name, ".", 1))
 			block->total += size;
+		free(statbuf);
 	}
 
 	if (!g_posixly_correct)

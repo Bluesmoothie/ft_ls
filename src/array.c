@@ -28,7 +28,16 @@ void	free_array(t_elem** array) {
 		return;
 
 	unsigned int	n = 0;
-	while (array[n])
+	while (array[n]) {
+		free(array[n]->name);
+		free(array[n]->path);
+		if (array[n]->owner)
+			free(array[n]->owner);
+		if (array[n]->group)
+			free(array[n]->group);
+		if (array[n]->mtime.month_str)
+			free(array[n]->mtime.month_str);
 		free(array[n++]);
+	}
 	free(array);
 }
