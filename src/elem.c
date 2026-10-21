@@ -30,7 +30,7 @@ __blkcnt_t	enrich_elem(const t_param param, t_elem* elem, const struct stat* sta
 
 		if (elem->type == 'b' || elem->type == 'c') {
 			elem->size = major(statbuf->st_rdev);
-			elem->size = minor(statbuf->st_rdev);
+			elem->size2 = minor(statbuf->st_rdev);
 		}
 		else
 			elem->size = statbuf->st_size;

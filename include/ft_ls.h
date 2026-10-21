@@ -47,6 +47,8 @@ typedef struct s_align {
 	int	owner;
 	int	group;
 	int	size;
+	int	size2;
+	int	size3;
 	int	month;
 } t_align;
 

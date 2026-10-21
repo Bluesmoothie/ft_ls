@@ -30,34 +30,38 @@ void	print_block(const t_param param, const t_block block) {
 		visible = true;
 		if (!param.long_format)
 			printf("%s  ", block.elem[i]->name);
-		else if ((six_month_ago < block.elem[i]->mtime.second
+		else {
+			printf("%c%s %*lu %-*s %-*s ",
+				block.elem[i]->type,
+				block.elem[i]->rights,
+				block.align.link, block.elem[i]->links,
+				block.align.owner, block.elem[i]->owner,
+				block.align.group, block.elem[i]->group);
+			if (block.elem[i]->type == 'b' || block.elem[i]->type == 'c') {
+				int	pad = block.align.size - (block.align.size2 + 2 + block.align.size3);
+				printf("%*lu, %*lu ",
+					block.align.size2 + (pad > 0 ? pad : 0), block.elem[i]->size,
+					block.align.size3, block.elem[i]->size2);
+			}
+			else
+				printf("%*lu ", block.align.size, block.elem[i]->size);
+			printf("%-*s %2d ",
+				block.align.month, block.elem[i]->mtime.month_str,
+				block.elem[i]->mtime.day);
+
+			if ((six_month_ago < block.elem[i]->mtime.second
 				|| (six_month_ago == block.elem[i]->mtime.second && now.tv_nsec < block.elem[i]->mtime.nanosecond))
 				&& (block.elem[i]->mtime.second < now.tv_sec
 				|| (block.elem[i]->mtime.second == now.tv_sec && block.elem[i]->mtime.nanosecond < now.tv_nsec)))
-			printf("%c%s %*lu %-*s %-*s %*lu %-*s %2d %02d:%02d %s\n", 
-				block.elem[i]->type,
-				block.elem[i]->rights,
-				block.align.link, block.elem[i]->links,
-				block.align.owner, block.elem[i]->owner,
-				block.align.group, block.elem[i]->group,
-				block.align.size, block.elem[i]->size,
-				block.align.month, block.elem[i]->mtime.month_str,
-				block.elem[i]->mtime.day,
-				block.elem[i]->mtime.hour,
-				block.elem[i]->mtime.minute,
-				block.elem[i]->name);
-		else 
-			printf("%c%s %*lu %-*s %-*s %*lu %-*s %2d  %d %s\n", 
-				block.elem[i]->type,
-				block.elem[i]->rights,
-				block.align.link, block.elem[i]->links,
-				block.align.owner, block.elem[i]->owner,
-				block.align.group, block.elem[i]->group,
-				block.align.size, block.elem[i]->size, 
-				block.align.month, block.elem[i]->mtime.month_str, 
-				block.elem[i]->mtime.day, 
-				block.elem[i]->mtime.year, 
-				block.elem[i]->name);
+				printf("%02d:%02d %s\n",
+					block.elem[i]->mtime.hour,
+					block.elem[i]->mtime.minute,
+					block.elem[i]->name);
+			else 
+				printf(" %d %s\n", 
+					block.elem[i]->mtime.year, 
+					block.elem[i]->name);
+			}
 	}
 	if (!param.long_format && visible) {
 		printf("\n");

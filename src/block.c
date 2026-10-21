@@ -63,9 +63,15 @@ static t_align	align_block(t_elem** elem) {
 		align.link = max(snprintf(NULL, 0, "%lu", elem[i]->links), align.link);
 		align.owner = max(snprintf(NULL, 0, "%s", elem[i]->owner), align.owner);
 		align.group = max(snprintf(NULL, 0, "%s", elem[i]->group), align.group);
-		align.size = max(snprintf(NULL, 0, "%lu", elem[i]->size), align.size);
+		if (elem[i]->type == 'b' || elem[i]->type == 'c') {
+			align.size2 = max(snprintf(NULL, 0, "%lu", elem[i]->size), align.size2);
+			align.size3 = max(snprintf(NULL, 0, "%lu", elem[i]->size2), align.size3);
+		} else
+			align.size = max(snprintf(NULL, 0, "%lu", elem[i]->size), align.size);
 		align.month = max(snprintf(NULL, 0, "%s", elem[i]->mtime.month_str), align.month);
 	}
+	if (align.size2 || align.size3)
+		align.size = max(align.size, align.size2 + 2 + align.size3);
 
 	return align;
 }
