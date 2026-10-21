@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "ft_ls.h"
 
@@ -45,6 +46,8 @@ int	main(int argc, char** argv) {
 	}
 
 	if (argc - optind > 1)	param.multiple_entries = true;
+
+	setlocale(LC_ALL, "");
 
 	// Using . as default if nothing is given
 	if (optind == argc)
