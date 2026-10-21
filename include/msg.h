@@ -18,5 +18,5 @@ Exit status:\n\
 
 const char* error_message[] = {
 	"ft_ls: cannot access '%s': No such file or directory\n",	//	ERR_ARG
-	"ft_ls: cannot open directory '%s': Permission denied"		//	ERR_PERM
+	"ft_ls: cannot open directory '%s': "						//	ERR_ACC
 };

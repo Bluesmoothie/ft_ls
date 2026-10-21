@@ -16,8 +16,6 @@ void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
 	block.elem = enum_dir(dir, &block.nelem, readed_by_readdir);
 	if (!block.elem)
 		return;
-	if (param.long_format)
-		block.print_total_and_name = true;
 	if (param.long_format || param.time_sort)
 		enrich_block(param, &block, readed_by_readdir);
 
@@ -27,7 +25,7 @@ void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
 	if (param.recursive)
 		recurse_block(param, block);
 
-	free_array(block.elem);
+	free_array(block.elem, true);
 }
 
 void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char** argv) {
@@ -79,12 +77,13 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 			enrich_block(param, &block, false);
 		sort_block(param, block);
 		print_block(param, block);
+		free_array(file_array, false);
 	}
 
 	if (folder_array) {
 		for (int i = 0; folder_array[i]; i++)
 			do_ls(param, folder_array[i]->name, false);
-		free_array(folder_array);
+		free_array(folder_array, false);
 	}
 }
 

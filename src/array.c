@@ -23,13 +23,14 @@ t_elem**	list_to_array(t_list* list, size_t* size) {
 	return array;
 }
 
-void	free_array(t_elem** array) {
+void	free_array(t_elem** array, const bool free_name) {
 	if (!array)
 		return;
 
 	unsigned int	n = 0;
 	while (array[n]) {
-		free(array[n]->name);
+		if (free_name)
+			free(array[n]->name);
 		free(array[n]->path);
 		if (array[n]->owner)
 			free(array[n]->owner);

@@ -1,3 +1,5 @@
+#include <errno.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -14,7 +16,9 @@ t_elem**	enum_dir(const char* dir, size_t* nelem, const bool readed_by_readdir) 
 				g_error_code = 1;
 		} else
 			g_error_code = 2;
-		print_err(ERR_PERM, dir);
+		print_err(ERR_ACC, dir);
+		strerror(errno);
+		printf("\n");
 		return NULL;
 	}
 	
@@ -22,7 +26,7 @@ t_elem**	enum_dir(const char* dir, size_t* nelem, const bool readed_by_readdir) 
 	struct dirent*	dirent = readdir(dir_p);
 
 	while (dirent) {
-		t_elem*	elem = malloc(sizeof(t_elem));
+		t_elem*	elem = calloc(1, sizeof(t_elem));
 		t_list*	node = list_new_node(elem);
 		if (!elem || !node)
 			exit(EXIT_FAILURE);

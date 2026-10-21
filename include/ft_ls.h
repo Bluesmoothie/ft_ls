@@ -55,13 +55,12 @@ typedef struct s_block {
 	t_elem**	elem;
 	size_t		nelem;
 	__blkcnt_t	total;
-	bool		print_total_and_name;
 	t_align		align;
 } t_block;
 
 typedef enum	e_error_code {
 	ERR_ARG,
-	ERR_PERM
+	ERR_ACC
 }	t_error_code;
 
 extern int	g_error_code;
@@ -74,7 +73,7 @@ struct stat*	check_arg(const t_param param, const char* arg, const bool readed_b
 
 //	array.c
 t_elem**		list_to_array(t_list* list, size_t* size);
-void			free_array(t_elem** array);
+void			free_array(t_elem** array, const bool free_name);
 
 //	block.c
 void			enrich_block(const t_param param, t_block* block, const bool readed_by_readdir);
