@@ -14,7 +14,8 @@ void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
 	t_block	block = { 0 };
 	block.name = dir;
 	block.elem = enum_dir(dir, &block.nelem);
-	block.print_total_and_name = true;
+	if (param.long_format)
+		block.print_total_and_name = true;
 	if (param.long_format || param.time_sort)
 		enrich_block(param, &block, readed_by_readdir);
 
