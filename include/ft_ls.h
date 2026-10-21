@@ -19,6 +19,7 @@ typedef struct	s_param {
 typedef struct	s_time {
 	int					day;
 	int					month;
+	char*				month_str;
 	int					year;
 	int					hour;
 	int					minute;
@@ -46,6 +47,7 @@ typedef struct s_align {
 	unsigned int	owner;
 	unsigned int	group;
 	unsigned int	size;
+	unsigned int	month;
 } t_align;
 
 typedef struct s_block {

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -5,6 +6,7 @@
 #include <grp.h>
 #include <sys/sysmacros.h>
 #include <time.h>
+#include <langinfo.h>
 
 #include "ft_ls.h"
 
@@ -34,10 +36,14 @@ __blkcnt_t	enrich_elem(const t_param param, t_elem* elem, const struct stat* sta
 			elem->size = statbuf->st_size;
 
 		elem->mtime.day = tm->tm_mday;
-		elem->mtime.month = tm->tm_mon + 1;
+		elem->mtime.month = tm->tm_mon;
 		elem->mtime.year = tm->tm_year + 1900;
 		elem->mtime.hour = tm->tm_hour;
 		elem->mtime.minute = tm->tm_min;
+
+		elem->mtime.month_str = strdup(nl_langinfo(ABMON_1 + elem->mtime.month));
+		if (!elem->mtime.month_str)
+			exit(EXIT_FAILURE);
 
 		elem->mtime.second = statbuf->st_mtim.tv_sec;
 		elem->mtime.nanosecond = statbuf->st_mtim.tv_nsec;
