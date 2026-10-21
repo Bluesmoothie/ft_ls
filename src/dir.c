@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <dirent.h>
 
@@ -20,6 +21,12 @@ t_elem**	enum_dir(const char* dir, size_t* nelem) {
 			exit(EXIT_FAILURE);
 
 		elem->name = dirent->d_name;
+		elem->path = malloc(strlen(elem->name) + strlen(dir) + 2);	//	+2 for \0 and dir/name
+		if (!elem->path)
+			exit(EXIT_FAILURE);
+		elem->path = strcpy(elem->path, dir);
+		elem->path = strcat(elem->path, "/");
+		elem->path = strcat(elem->path, elem->name);
 		if (dirent->d_type == DT_DIR)	//	permit recursivity to work without long format option
 			elem->type = 'd';
 		list_push_back(&dir_lst, node);

@@ -12,7 +12,7 @@ static void		decode_rights(const __mode_t mode, char rights[10]);
 static char*	decode_owner(const __uid_t uid);
 static char*	decode_group(const __gid_t gid);
 
-void	enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf) {
+__blkcnt_t	enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf) {
 	const struct tm*	tm = localtime(&statbuf->st_mtime);
 
 	if (param.long_format) {
@@ -46,6 +46,8 @@ void	enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf) 
 		elem->mtime.second = statbuf->st_mtim.tv_sec;
 		elem->mtime.nanosecond = statbuf->st_mtim.tv_nsec;
 	}
+
+	return statbuf->st_blocks;
 }
 
 char	decode_type(const __mode_t mode) {

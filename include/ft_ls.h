@@ -53,7 +53,7 @@ typedef struct s_block {
 	t_elem**	elem;
 	size_t		nelem;
 	__blkcnt_t	total;
-	bool		print_total;
+	bool		print_total_and_name;
 	t_align		align;
 } t_block;
 
@@ -62,6 +62,7 @@ typedef enum	e_error_code {
 }	t_error_code;
 
 extern int	g_error_code;
+extern bool	g_posixly_correct;
 
 //	ls.c
 void			do_ls(const t_param param, char* dir, const bool readed_by_readdir);
@@ -73,7 +74,7 @@ t_elem**		list_to_array(t_list* list, size_t* size);
 void			free_array(t_elem** array);
 
 //	block.c
-t_block			enrich_block(const t_param param, t_block block, const bool readed_by_readdir);
+void			enrich_block(const t_param param, t_block* block, const bool readed_by_readdir);
 void			recurse_block(const t_param param, const t_block block);
 void			sort_block(const t_param param, t_block block);
 
@@ -81,7 +82,7 @@ void			sort_block(const t_param param, t_block block);
 t_elem**		enum_dir(const char* dir, size_t* nelem);
 
 //	elem.c
-void			enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf);
+__blkcnt_t		enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf);
 char			decode_type(const __mode_t mode);
 
 //	msg.c

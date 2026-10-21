@@ -8,23 +8,26 @@
 static int		compare(const void* a, const void* b, void* param);
 static t_align	align_block(t_elem** elem);
 
-t_block	enrich_block(const t_param param, t_block block, const bool readed_by_readdir) {
-	for (unsigned int i = 0; block.elem[i]; i++) {
-		const struct stat*	statbuf = check_arg(param, block.elem[i]->name, readed_by_readdir);
+void	enrich_block(const t_param param, t_block* block, const bool readed_by_readdir) {
+	for (unsigned int i = 0; block->elem[i]; i++) {
+		const struct stat*	statbuf = check_arg(param, block->elem[i]->path, readed_by_readdir);
 		if (!statbuf)
 			continue;
-		enrich_elem(param, (block.elem[i]), statbuf);
+		const __blkcnt_t	size = enrich_elem(param, (block->elem[i]), statbuf);
+		if (param.show_hidden || strncmp(block->elem[i]->name, ".", 1))
+			block->total += size;
 	}
 
-	block.align = align_block(block.elem);
+	if (!g_posixly_correct)
+		block->total = block->total / 2;
 
-	return block;
+	block->align = align_block(block->elem);
 }
 
 void	recurse_block(const t_param param, const t_block block) {
 	for (unsigned int i = 0; block.elem[i]; i++) {
 		if (block.elem[i]->type == 'd' && strncmp(block.elem[i]->name, ".", 1))
-			do_ls(param, block.elem[i]->name, true);
+			do_ls(param, block.elem[i]->path, true);
 	}
 }
 

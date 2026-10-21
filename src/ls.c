@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stddef.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -13,8 +14,9 @@ void	do_ls(const t_param param, char* dir, const bool readed_by_readdir) {
 	t_block	block = { 0 };
 	block.name = dir;
 	block.elem = enum_dir(dir, &block.nelem);
+	block.print_total_and_name = true;
 	if (param.long_format || param.time_sort)
-		block = enrich_block(param, block, readed_by_readdir);
+		enrich_block(param, &block, readed_by_readdir);
 
 	sort_block(param, block);
 	print_block(param, block);
@@ -41,6 +43,9 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 			exit(EXIT_FAILURE);
 
 		elem->name = argv[optind];
+		elem->path = strdup(elem->name);
+		if (!elem->path)
+			exit(EXIT_FAILURE);
 		elem->type = decode_type(statbuf->st_mode);
 
 		t_list*	node = list_new_node(elem);
@@ -67,7 +72,7 @@ void	treat_args_and_do_ls(const t_param param, int optind, const int argc, char*
 		block.elem = file_array;
 		block.nelem = file_array_size;
 		if (param.long_format || param.time_sort)
-			block = enrich_block(param, block, false);
+			enrich_block(param, &block, false);
 		sort_block(param, block);
 		print_block(param, block);
 	}

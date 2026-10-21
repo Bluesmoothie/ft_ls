@@ -1,10 +1,12 @@
+#include <stdbool.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <locale.h>
 
 #include "ft_ls.h"
 
-int g_error_code = 0;
+int 	g_error_code = 0;
+bool	g_posixly_correct = false;
 
 int	main(int argc, char** argv) {
 	
@@ -48,6 +50,7 @@ int	main(int argc, char** argv) {
 	if (argc - optind > 1)	param.multiple_entries = true;
 
 	setlocale(LC_ALL, "");
+	g_posixly_correct = (getenv("POSIXLY_CORRECT") == NULL) ? false : true;
 
 	// Using . as default if nothing is given
 	if (optind == argc)

@@ -11,6 +11,9 @@ void	print_block(const t_param param, const t_block block) {
 	clock_gettime(CLOCK_REALTIME, &now);
 	const __time_t	six_month_ago = now.tv_sec - 15778476;
 
+	if (block.elem[0] && block.print_total_and_name)
+		printf("%s:\ntotal %lu\n", block.name, block.total);
+
 	for (unsigned int i = 0; block.elem[i]; i++) {
 		if (!param.show_hidden && !strncmp(block.elem[i]->name, ".", 1))
 			continue;
