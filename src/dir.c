@@ -6,10 +6,17 @@
 #include "ft_ls.h"
 #include "list.h"
 
-t_elem**	enum_dir(const char* dir, size_t* nelem) {
+t_elem**	enum_dir(const char* dir, size_t* nelem, const bool readed_by_readdir) {
 	DIR*	dir_p = opendir(dir);
-	if (!dir_p)
-		exit(EXIT_FAILURE);
+	if (!dir_p) {
+		if (readed_by_readdir) {
+			if (!g_error_code)
+				g_error_code = 1;
+		} else
+			g_error_code = 2;
+		print_err(ERR_PERM, dir);
+		return NULL;
+	}
 	
 	t_list*	dir_lst = NULL;
 	struct dirent*	dirent = readdir(dir_p);

@@ -60,7 +60,8 @@ typedef struct s_block {
 } t_block;
 
 typedef enum	e_error_code {
-	ERR_ARG
+	ERR_ARG,
+	ERR_PERM
 }	t_error_code;
 
 extern int	g_error_code;
@@ -81,7 +82,7 @@ void			recurse_block(const t_param param, const t_block block);
 void			sort_block(const t_param param, t_block block);
 
 //	dir.c
-t_elem**		enum_dir(const char* dir, size_t* nelem);
+t_elem**		enum_dir(const char* dir, size_t* nelem, const bool readed_by_readdir);
 
 //	elem.c
 __blkcnt_t		enrich_elem(const t_param param, t_elem* elem, const struct stat* statbuf);
