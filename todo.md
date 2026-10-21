@@ -1,7 +1,5 @@
 # À faire
 
-Si `name` commence par `/`, il est déjà absolu et le dossier ne doit pas être collé devant. `readdir` ne renvoie pas un tel nom. Le collage actuel ferait de `/home` et `/etc` le chemin `/home//etc`.
-
 Pour un périphérique bloc (`b`) ou caractère (`c`), `ls -l` affiche `major, minor` à la place de la taille. `major(st_rdev)` va dans `size`, `minor(st_rdev)` dans `size2`. L'affichage imprime les deux sous la forme `1, 3` : une virgule puis une espace. Cette colonne est commune au bloc. Le majeur et le mineur sont alignés à droite sur leur plus grande largeur, et l'espace restant est ajouté devant le majeur pour que les virgules tombent sur la même colonne. `/dev/null` affiche `1, 3`. Un lien garde `st_size`, la longueur du chemin cible, et la cible suit le nom : ` -> cible`.
 
 Si `getpwuid` ou `getgrgid` ne renvoie pas de nom, ou si ce nom est vide, la colonne propriétaire ou groupe affiche l'identifiant numérique (`st_uid`, `st_gid`). Seul le champ manquant devient numérique. Un nom est aligné à gauche, un identifiant à droite, dans la largeur de la chaîne réellement affichée, chiffres compris. Ces fonctions renvoient une zone statique : le nom affiché en est une copie.

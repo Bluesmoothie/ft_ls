@@ -34,13 +34,19 @@ t_elem**	enum_dir(const char* dir, size_t* nelem, const bool readed_by_readdir) 
 		elem->name = strdup(dirent->d_name);
 		if (!elem->name)
 			exit(EXIT_FAILURE);
-		elem->path = malloc(strlen(elem->name) + strlen(dir) + 2);	//	+2 for \0 and dir/name
-		if (!elem->path)
-			exit(EXIT_FAILURE);
-		elem->path = strcpy(elem->path, dir);
-		if (elem->path[0] && elem->path[strlen(elem->path) - 1] != '/')
-			elem->path = strcat(elem->path, "/");
-		elem->path = strcat(elem->path, elem->name);
+		if (elem->name[0] == '/') {		//	if name start with '/' the this is already a full path
+			elem->path = strdup(elem->name);
+			if (!elem->path)
+				exit(EXIT_FAILURE);
+		} else {
+			elem->path = malloc(strlen(elem->name) + strlen(dir) + 2);	//	+2 for \0 and dir/name
+			if (!elem->path)
+				exit(EXIT_FAILURE);
+			elem->path = strcpy(elem->path, dir);
+			if (elem->path[0] && elem->path[strlen(elem->path) - 1] != '/')
+				elem->path = strcat(elem->path, "/");
+			elem->path = strcat(elem->path, elem->name);
+		}
 		if (dirent->d_type == DT_DIR)	//	permit recursivity to work without long format option
 			elem->type = 'd';
 		list_push_back(&dir_lst, node);
