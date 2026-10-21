@@ -27,7 +27,10 @@ void	enrich_block(const t_param param, t_block* block, const bool readed_by_read
 
 void	recurse_block(const t_param param, const t_block block) {
 	for (unsigned int i = 0; block.elem[i]; i++) {
-		if (block.elem[i]->type == 'd' && strncmp(block.elem[i]->name, ".", 1))
+		if (block.elem[i]->type == 'd' &&
+			strcmp(block.elem[i]->name, ".") &&
+			strcmp(block.elem[i]->name, "..") &&
+			(param.show_hidden || strncmp(block.elem[i]->name, ".", 1)))
 			do_ls(param, block.elem[i]->path, true);
 	}
 }
